@@ -10,8 +10,8 @@
 #include "AutoLight.cginc"
 #include "head.cginc"
 
-VertexOutput vertForwardBase (VertexInput v) {
-    VertexOutput o = (VertexOutput)0;
+VertexPBROutput vertPBRForwardBase (VertexPBRInput v) {
+    VertexPBROutput o = (VertexPBROutput)0;
     o.uv0 = v.texcoord0;
     #ifdef LIGHTMAP_ON
         o.ambientOrLightmapUV.xy = v.texcoord1.xy * unity_LightmapST.xy + unity_LightmapST.zw;

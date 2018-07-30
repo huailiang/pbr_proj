@@ -12,7 +12,9 @@
 *.user
 *.userprefs
 *.pidb
+*.sln
 *.booproj
+*.csproj
 *.DotSettings
 *.apk
 *.DS_Store

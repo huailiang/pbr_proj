@@ -1,8 +1,8 @@
 Shader "Custom/PBS/PBS_M4" {
-    Properties {
-        _NormalMap ("Normal Map", 2D) = "bump" {}
-        _Color ("Color", Color) = (0.0,0.0,0.0,1)
+    Properties {        
         _MainTex ("Base Color", 2D) = "white" {}
+        _Color ("Color", Color) = (0.0,0.0,0.0,1)
+        _NormalMap ("Normal Map", 2D) = "bump" {}
         _Metallic ("Metallic", Range(0, 1)) = 0
         _Gloss ("Gloss", Range(0, 1)) = 0.8
 
@@ -20,8 +20,8 @@ Shader "Custom/PBS/PBS_M4" {
 
             #include "common/vert.cginc"
             #include "common/piexl.cginc"
-            #pragma vertex vertForwardBase
-            #pragma fragment fragForwardBase
+            #pragma vertex vertPBRForwardBase
+            #pragma fragment fragPBRForwardBase
             #define UNITY_PASS_FORWARDBASE
             #define SHOULD_SAMPLE_SH ( defined (LIGHTMAP_OFF) && defined(DYNAMICLIGHTMAP_OFF) )
             #define _GLOSSYENV 1

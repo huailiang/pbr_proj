@@ -18,7 +18,7 @@ uniform float4 _NormalMap_ST;
 uniform float _Metallic;
 uniform float _Gloss;
 
-float4 fragForwardBase(VertexOutput i) : COLOR {
+float4 fragPBRForwardBase(VertexPBROutput i) : COLOR {
     i.normalDir = normalize(i.normalDir);
     float3x3 tangentTransform = float3x3(i.tangentDir, i.bitangentDir, i.normalDir);
     float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
@@ -125,7 +125,7 @@ float4 fragForwardBase(VertexOutput i) : COLOR {
     fixed4 finalRGBA = fixed4(finalColor,1);
     UNITY_APPLY_FOG(i.fogCoord, finalRGBA);
 
-    DEBUG_PBS_COLOR(diffuse,specular,normalLocal);
+    DEBUG_PBS_COLOR(diffuse,specular,normalDirection);
     return finalRGBA;
 }
 
