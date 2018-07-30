@@ -1,0 +1,181 @@
+fileFormatVersion: 2
+guid: bb17bb05ddca39941ae82f6297532e62
+timeCreated: 1491915025
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Bolt
+    100002: Bolt_end
+    100004: Button
+    100006: Button_end
+    100008: DustCover
+    100010: DustCover_end
+    100012: Gun
+    100014: Handle
+    100016: Handle_end
+    100018: M4A1
+    100020: M4A1_Barrel
+    100022: M4A1_Bolt
+    100024: M4A1_BoltFwdAsst
+    100026: M4A1_DustCover
+    100028: M4A1_FrontSight
+    100030: M4A1_Grip
+    100032: M4A1_Handguard
+    100034: M4A1_Handguard_m
+    100036: M4A1_Handle
+    100038: M4A1_Magazine
+    100040: M4A1_MagCatch
+    100042: M4A1_RearSight
+    100044: M4A1_Receiver
+    100046: //RootNode
+    100048: M4A1_Stock
+    100050: Magazine
+    100052: Magazine_end
+    100054: MagCatch
+    100056: MagCatch_end
+    100058: Selector
+    100060: Selector_end
+    100062: Stock
+    100064: Stock_end
+    100066: Trigger
+    100068: Trigger_end
+    400000: Bolt
+    400002: Bolt_end
+    400004: Button
+    400006: Button_end
+    400008: DustCover
+    400010: DustCover_end
+    400012: Gun
+    400014: Handle
+    400016: Handle_end
+    400018: M4A1
+    400020: M4A1_Barrel
+    400022: M4A1_Bolt
+    400024: M4A1_BoltFwdAsst
+    400026: M4A1_DustCover
+    400028: M4A1_FrontSight
+    400030: M4A1_Grip
+    400032: M4A1_Handguard
+    400034: M4A1_Handguard_m
+    400036: M4A1_Handle
+    400038: M4A1_Magazine
+    400040: M4A1_MagCatch
+    400042: M4A1_RearSight
+    400044: M4A1_Receiver
+    400046: //RootNode
+    400048: M4A1_Stock
+    400050: Magazine
+    400052: Magazine_end
+    400054: MagCatch
+    400056: MagCatch_end
+    400058: Selector
+    400060: Selector_end
+    400062: Stock
+    400064: Stock_end
+    400066: Trigger
+    400068: Trigger_end
+    4300000: M4A1_Handguard_m
+    4300002: M4A1_Barrel
+    4300004: M4A1_Bolt
+    4300006: M4A1_BoltFwdAsst
+    4300008: M4A1_DustCover
+    4300010: M4A1_FrontSight
+    4300012: M4A1_Grip
+    4300014: M4A1_Handguard
+    4300016: M4A1_Handle
+    4300018: M4A1_MagCatch
+    4300020: M4A1_Magazine
+    4300022: M4A1_RearSight
+    4300024: M4A1_Receiver
+    4300026: M4A1_Stock
+    7400000: M4A1|Bolt_Fire
+    7400002: M4A1|BoltClosed
+    7400004: M4A1|BoltOpen
+    7400006: M4A1|DustCoverClosed
+    7400008: M4A1|DustCoverOpen
+    9500000: //RootNode
+    13700000: M4A1_Barrel
+    13700002: M4A1_Bolt
+    13700004: M4A1_BoltFwdAsst
+    13700006: M4A1_DustCover
+    13700008: M4A1_FrontSight
+    13700010: M4A1_Grip
+    13700012: M4A1_Handguard
+    13700014: M4A1_Handguard_m
+    13700016: M4A1_Handle
+    13700018: M4A1_Magazine
+    13700020: M4A1_MagCatch
+    13700022: M4A1_RearSight
+    13700024: M4A1_Receiver
+    13700026: M4A1_Stock
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
