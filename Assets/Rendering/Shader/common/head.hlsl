@@ -1,5 +1,5 @@
 /**
-* head.cginc
+* head.hlsl
 */
 
 #ifndef UNITY_HEAD
@@ -19,10 +19,10 @@ struct VertexPBROutput {
     float3 normalDir : TEXCOORD2;
     float3 tangentDir : TEXCOORD3;
     float3 bitangentDir : TEXCOORD4;
-    LIGHTING_COORDS(7,8)
-    UNITY_FOG_COORDS(9)
+    LIGHTING_COORDS(5,6)
+    UNITY_FOG_COORDS(7)
     #if defined(LIGHTMAP_ON) || defined(UNITY_SHOULD_SAMPLE_SH)
-        float4 ambientOrLightmapUV : TEXCOORD10;
+        float4 ambientOrLightmapUV : TEXCOORD8;
     #endif
 };
 

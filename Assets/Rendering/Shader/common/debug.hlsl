@@ -1,5 +1,5 @@
 /**
-* debug.cginc
+* debug.hlsl
 */
 
 #ifndef UNITY_DEBUG

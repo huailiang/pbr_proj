@@ -1,5 +1,5 @@
 /**
-* vert.cginc: vert function
+* vert.hlsl: vert function
 */
 
 #ifndef UNITY_VERT
@@ -9,27 +9,28 @@
 #include "UnityCG.cginc"
 #include "AutoLight.cginc"
 #include "head.hlsl"
+#include "stdlib.hlsl"
 
-VertexPBROutput vertPBRForwardBase (VertexPBRInput v) {
-    VertexPBROutput o = (VertexPBROutput)0;
-    o.uv0 = v.texcoord0;
+
+void vertPBRForwardBase (VertexPBRInput input,out VertexPBROutput output) {
+    INITIALIZE_OUTPUT(VertexPBROutput,output);
+    output.uv0 = input.texcoord0;
     #ifdef LIGHTMAP_ON
-        o.ambientOrLightmapUV.xy = v.texcoord1.xy * unity_LightmapST.xy + unity_LightmapST.zw;
-        o.ambientOrLightmapUV.zw = 0;
+        output.ambientOrLightmapUV.xy = input.texcoord1.xy * unity_LightmapST.xy + unity_LightmapST.zw;
+        output.ambientOrLightmapUV.zw = 0;
     #elif UNITY_SHOULD_SAMPLE_SH
     #endif
     #ifdef DYNAMICLIGHTMAP_ON
-        o.ambientOrLightmapUV.zw = v.texcoord2.xy * unity_DynamicLightmapST.xy + unity_DynamicLightmapST.zw;
+        output.ambientOrLightmapUV.zw = input.texcoord2.xy * unity_DynamicLightmapST.xy + unity_DynamicLightmapST.zw;
     #endif
-    o.normalDir = UnityObjectToWorldNormal(v.normal);
-    o.tangentDir = normalize( mul( unity_ObjectToWorld, float4( v.tangent.xyz, 0.0 ) ).xyz );
-    o.bitangentDir = normalize(cross(o.normalDir, o.tangentDir) * v.tangent.w);
-    o.posWorld = mul(unity_ObjectToWorld, v.vertex);
+    output.normalDir = UnityObjectToWorldNormal(input.normal);
+    output.tangentDir = normalize(mul(unity_ObjectToWorld, float4( input.tangent.xyz, 0.0)).xyz);
+    output.bitangentDir = normalize(cross(output.normalDir, output.tangentDir) * input.tangent.w);
+    output.posWorld = mul(unity_ObjectToWorld, input.vertex);
     float3 lightColor = _LightColor0.rgb;
-    o.pos = UnityObjectToClipPos( v.vertex );
-    UNITY_TRANSFER_FOG(o,o.pos);
-    TRANSFER_VERTEX_TO_FRAGMENT(o)
-    return o;
+    output.pos = UnityObjectToClipPos(input.vertex);
+    UNITY_TRANSFER_FOG(output,output.pos);
+    TRANSFER_VERTEX_TO_FRAGMENT(output)
 }
 
 #endif //UNITY_VERT

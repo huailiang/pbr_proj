@@ -1,5 +1,5 @@
 /**
-* stdlib.cginc: comon varible and function
+* stdlib.hlsl: comon varible and function
 */
 
 #ifndef UNITY_STDLIB

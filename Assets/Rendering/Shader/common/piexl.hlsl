@@ -1,5 +1,5 @@
 /**
-* piexl.cginc: frag funtion
+* piexl.hlsl: frag funtion
 */
 
 #ifndef UNITY_PIEXL
@@ -9,16 +9,9 @@
 #include "UnityStandardBRDF.cginc"
 #include "stdlib.hlsl"
 #include "debug.hlsl"
+#include "material.hlsl"
 
-uniform float4 _Color;
-uniform sampler2D _MainTex; 
-uniform float4 _MainTex_ST;
-uniform sampler2D _NormalMap; 
-uniform float4 _NormalMap_ST;
-uniform float _Metallic;
-uniform float _Gloss;
-
-float4 fragPBRForwardBase(VertexPBROutput i) : COLOR {
+float4 fragPBRForwardBase(VertexPBROutput i) : SV_Target {
     i.normalDir = normalize(i.normalDir);
     float3x3 tangentTransform = float3x3(i.tangentDir, i.bitangentDir, i.normalDir);
     float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
@@ -124,8 +117,9 @@ float4 fragPBRForwardBase(VertexPBROutput i) : COLOR {
     float3 finalColor = diffuse + specular;
     fixed4 finalRGBA = fixed4(finalColor,1);
     UNITY_APPLY_FOG(i.fogCoord, finalRGBA);
-
+    #if OPEN_SHADER_DEBUG
     DEBUG_PBS_COLOR(diffuse,specular,normalDirection);
+    #endif
     return finalRGBA;
 }
 
