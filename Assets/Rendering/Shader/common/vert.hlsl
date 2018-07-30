@@ -8,7 +8,7 @@
 #include "Lighting.cginc"
 #include "UnityCG.cginc"
 #include "AutoLight.cginc"
-#include "head.cginc"
+#include "head.hlsl"
 
 VertexPBROutput vertPBRForwardBase (VertexPBRInput v) {
     VertexPBROutput o = (VertexPBROutput)0;

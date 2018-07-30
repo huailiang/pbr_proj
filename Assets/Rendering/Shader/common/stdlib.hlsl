@@ -5,6 +5,9 @@
 #ifndef UNITY_STDLIB
 #define UNITY_STDLIB
 
+#include "UnityPBSLighting.cginc"
+#include "UnityStandardBRDF.cginc"
+
 #define EPSILON      1.0e-4
 #define PI           3.14159265359
 #define INV_PI       0.31830988618
@@ -25,26 +28,27 @@
 
 #define swap(a, b)   temp = a; a = min(a, b); b = max(temp, b);
 
-// https://twitter.com/SebAaltonen/status/878250919879639040
-// madd_sat + madd
-inline float FastSign(float x)
+// Using pow often result to a warning like this
+// "pow(f, e) will not work for negative f, use abs(f) or conditionally handle negative values if you expect them"
+// PositivePow remove this warning when you know the value is positive and avoid inf/NAN.
+inline float PositivePow(float base, float power)
 {
-    return saturate(x * FLT_MAX + 0.5) * 2.0 - 1.0;
+    return pow(max(abs(base), float(FLT_EPSILON)), power);
 }
 
-inline float2 FastSign(float2 x)
+inline float2 PositivePow(float2 base, float2 power)
 {
-    return saturate(x * FLT_MAX + 0.5) * 2.0 - 1.0;
+    return pow(max(abs(base), float2(FLT_EPSILON, FLT_EPSILON)), power);
 }
 
-inline float3 FastSign(float3 x)
+inline float3 PositivePow(float3 base, float3 power)
 {
-    return saturate(x * FLT_MAX + 0.5) * 2.0 - 1.0;
+    return pow(max(abs(base), float3(FLT_EPSILON, FLT_EPSILON, FLT_EPSILON)), power);
 }
 
-inline float4 FastSign(float4 x)
+inline float4 PositivePow(float4 base, float4 power)
 {
-    return saturate(x * FLT_MAX + 0.5) * 2.0 - 1.0;
+    return pow(max(abs(base), float4(FLT_EPSILON, FLT_EPSILON, FLT_EPSILON, FLT_EPSILON)), power);
 }
 
 #endif //UNITY_STDLIB

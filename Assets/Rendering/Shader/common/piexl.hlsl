@@ -7,8 +7,8 @@
 
 #include "UnityPBSLighting.cginc"
 #include "UnityStandardBRDF.cginc"
-#include "stdlib.cginc"
-#include "debug.cginc"
+#include "stdlib.hlsl"
+#include "debug.hlsl"
 
 uniform float4 _Color;
 uniform sampler2D _MainTex; 

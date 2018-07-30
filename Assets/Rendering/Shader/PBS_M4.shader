@@ -18,14 +18,12 @@ Shader "Custom/PBS/PBS_M4" {
             
             #pragma target 3.0
 
-            #include "common/vert.cginc"
-            #include "common/piexl.cginc"
+            #include "common/vert.hlsl"
+            #include "common/piexl.hlsl"
             #pragma vertex vertPBRForwardBase
             #pragma fragment fragPBRForwardBase
-            #define UNITY_PASS_FORWARDBASE
             #define SHOULD_SAMPLE_SH ( defined (LIGHTMAP_OFF) && defined(DYNAMICLIGHTMAP_OFF) )
-            #define _GLOSSYENV 1
-           
+
             #pragma multi_compile_fwdbase_fullshadows
             #pragma multi_compile LIGHTMAP_OFF LIGHTMAP_ON
             #pragma multi_compile DIRLIGHTMAP_OFF DIRLIGHTMAP_COMBINED DIRLIGHTMAP_SEPARATE
