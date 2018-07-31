@@ -18,7 +18,6 @@ namespace UnityEditor
         Material m_Material;
 
         bool initial = false;
-        MaterialProperty debugMode = null;
         bool open_debug = true;
         DebugMode mode;
 
@@ -54,14 +53,14 @@ namespace UnityEditor
             if (open_debug)
             {
                 mode = (DebugMode)EditorGUILayout.Popup("Debug Mode", (int)mode, Enum.GetNames(typeof(DebugMode)));
-                debugMode.floatValue = (float)mode;
+                m_Material.SetFloat("_DebugMode", (float)mode);
             }
         }
 
         private void FindProperties(MaterialProperty[] props)
         {
             Shader shader = m_Material.shader;
-            debugMode = FindProperty("_DebugMode", props, false);
+            //debugMode = FindProperty("_DebugMode", props, false);
         }
 
     }
