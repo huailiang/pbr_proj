@@ -9,14 +9,15 @@
 #define Debug_Diffuse   2
 #define Debug_Specular  3
 #define Debug_Normal    4
+#define Debug_Rim       5
 
 
-#define DEBUG_PBS_COLOR(diffuse, specular, normal) finalRGBA = DebugOutputColor(diffuse,specular,normal)
+#define DEBUG_PBS_COLOR(diffuse, specular, rim, normal) finalRGBA = DebugOutputColor(diffuse, specular, rim, normal)
 
 uniform float _DebugMode;
 
 
-float4 DebugOutputColor (float3 diffuse,float3 specular,float3 normal) 
+float4 DebugOutputColor (float3 diffuse,float3 specular,float3 rim, float3 normal) 
 {
     if (_DebugMode<Debug_None)
     {
@@ -33,6 +34,10 @@ float4 DebugOutputColor (float3 diffuse,float3 specular,float3 normal)
     else if (_DebugMode<Debug_Normal)
     {
         return float4(normal,1);
+    }
+    else if (_DebugMode<Debug_Rim)
+    {
+        return float4(rim,1);
     }
     return float4(1,1,1,1);
 }

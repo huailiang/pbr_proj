@@ -26,8 +26,8 @@ float4 fragPBRForwardBase(VertexPBROutput i) : SV_Target {
     float attenuation = LIGHT_ATTENUATION(i);
     float3 attenColor = attenuation * _LightColor0.xyz;
 ///////// Gloss:
-    float gloss = _Gloss;
-    float perceptualRoughness = 1.0 - _Gloss;
+    float gloss = _Properties.y;
+    float perceptualRoughness = 1.0 - gloss;
     float roughness = perceptualRoughness * perceptualRoughness;
 /////// GI Data:
     UnityLight light;
@@ -72,7 +72,7 @@ float4 fragPBRForwardBase(VertexPBROutput i) : SV_Target {
 ////// Specular:
     float NdotL = saturate(dot(normalDirection, lightDirection));
     float LdotH = saturate(dot(lightDirection, halfDirection));
-    float3 specularColor = _Metallic;
+    float3 specularColor = _Properties.x;
     float specularMonochrome;
     float4 _MainTex_var = tex2D(_MainTex,TRANSFORM_TEX(i.uv0, _MainTex));
     float3 diffuseColor = (_MainTex_var.rgb*_Color.rgb); // Need this for specular when using metallic
@@ -113,12 +113,17 @@ float4 fragPBRForwardBase(VertexPBROutput i) : SV_Target {
     float3 indirectDiffuse = float3(0,0,0);
     indirectDiffuse += gi.indirect.diffuse;
     float3 diffuse = (directDiffuse + indirectDiffuse) * diffuseColor;
+/// Rim Color
+    float rimIntensity = _Properties.z;
+    float rimWidth = _Properties.w;
+    float axi = pow(saturate((1-NdotV)*(1-NdotL)*_Properties.w),3)* _Properties.z;
+    float3 rim = lightColor*axi;
 /// Final Color:
-    float3 finalColor = diffuse + specular;
+    float3 finalColor = diffuse + specular+rim;
     fixed4 finalRGBA = fixed4(finalColor,1);
     UNITY_APPLY_FOG(i.fogCoord, finalRGBA);
     #if OPEN_SHADER_DEBUG
-    DEBUG_PBS_COLOR(diffuse,specular,normalDirection);
+    DEBUG_PBS_COLOR(diffuse,specular,rim,normalDirection);
     #endif
     return finalRGBA;
 }

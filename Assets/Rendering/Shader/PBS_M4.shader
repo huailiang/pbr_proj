@@ -3,10 +3,14 @@ Shader "Custom/PBS/PBS_M4" {
         _MainTex ("Base Color", 2D) = "white" {}
         _Color ("Color", Color) = (0.0,0.0,0.0,1)
         _NormalMap ("Normal Map", 2D) = "bump" {}
-        _Metallic ("Metallic", Range(0, 1)) = 0
-        _Gloss ("Gloss", Range(0, 1)) = 0.8
+        //_Metallic ("Metallic", Range(0, 1)) = 0
+        //_Gloss ("Gloss", Range(0, 1)) = 0.8
+        
+        [F4Vector(Metallic,0,1,Gloss,0,1,RimIntensity,0,100,RimWitdh,0,1)]
+        _Properties("Properties", Vector) = (0,0,0,1.0)
 
-        [HideInInspector] _DebugMode("__debugMode", float) = 0.0
+        [HideInInspector] 
+        _DebugMode("__debugMode", float) = 0.0
     }
     SubShader {
         Tags { "RenderType"="Opaque" }

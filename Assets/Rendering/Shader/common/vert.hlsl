@@ -31,7 +31,7 @@ void vertPBRForwardBase (VertexPBRInput v,out VertexPBROutput o) {
     #elif UNITY_SHOULD_SAMPLE_SH
         o.ambientOrLightmapUV = 0;
         #ifdef VERTEXLIGHT_ON
-            o.ambientOrLightmapUV += Shade4PointLights (
+            float3 light = Shade4PointLights (
               unity_4LightPosX0, 
               unity_4LightPosY0, 
               unity_4LightPosZ0,
@@ -42,6 +42,7 @@ void vertPBRForwardBase (VertexPBRInput v,out VertexPBROutput o) {
               unity_4LightAtten0, 
               o.posWorld, 
               o.normalDir );
+             o.ambientOrLightmapUV += float4(light,0);
         #endif // VERTEXLIGHT_ON
     #endif
     #ifdef DYNAMICLIGHTMAP_ON

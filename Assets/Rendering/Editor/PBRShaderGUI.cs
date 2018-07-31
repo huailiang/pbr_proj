@@ -11,12 +11,14 @@ namespace UnityEditor
             None,
             Diffuse,
             Specular,
-            Normal
+            Normal,
+            Rim
         }
 
         Material m_Material;
-        MaterialProperty debugMode = null;
 
+        bool initial = false;
+        MaterialProperty debugMode = null;
         bool open_debug = true;
         DebugMode mode;
 
@@ -24,13 +26,14 @@ namespace UnityEditor
         {
             base.OnGUI(materialEditor, props);
             m_Material = materialEditor.target as Material;
-            if (debugMode == null)
+            if (!initial)
             {
                 FindProperties(props);
+                initial = true;
             }
-
             ShaderDebugGUI();
         }
+
 
 
         private void ShaderDebugGUI()
