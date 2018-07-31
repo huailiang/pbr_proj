@@ -105,7 +105,7 @@ float4 fragPBRForwardBase(VertexPBROutput i) : SV_Target {
     indirectSpecular *= surfaceReduction;
     float3 specular = (directSpecular + indirectSpecular);
 /////// Diffuse:
-    NdotL = max(0.0,dot( normalDirection, lightDirection ));
+    NdotL = max(0.0,dot(normalDirection, lightDirection));
     half fd90 = 0.5 + 2 * LdotH * LdotH * (1-gloss);
     float nlPow5 = Pow5(1-NdotL);
     float nvPow5 = Pow5(1-NdotV);
