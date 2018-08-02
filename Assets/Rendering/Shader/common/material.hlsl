@@ -13,4 +13,9 @@ uniform sampler2D _NormalMap;
 uniform float4 _NormalMap_ST;
 uniform float4 _Properties;
 
+#if USE_SPECIAL_RIM_COLOR
+uniform float4 _RimColor;
+#endif
+
+
 #endif //UNITY_MATERIAL

@@ -9,6 +9,9 @@ Shader "Custom/PBR/PBR_M4" {
 
         [HideInInspector] 
         _DebugMode("debugMode", float) = 0.0
+
+        [HideInInspector]
+        _RimColor("RimColor",Color)=(1,1,1,1)
     }
     SubShader {
         Tags { "RenderType"="Opaque" }
@@ -21,6 +24,8 @@ Shader "Custom/PBR/PBR_M4" {
             #pragma target 3.0
             
             #pragma shader_feature OPEN_SHADER_DEBUG
+            #pragma shader_feature USE_SPECIAL_RIM_COLOR
+            
             #define UNITY_PASS_FORWARDBASE
             #define SHOULD_SAMPLE_SH ( defined (LIGHTMAP_OFF) && defined(DYNAMICLIGHTMAP_OFF) )
             #define _GLOSSYENV 1

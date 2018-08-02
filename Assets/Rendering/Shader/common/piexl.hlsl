@@ -118,7 +118,11 @@ float4 fragPBRForwardBase(VertexPBROutput i) : SV_Target {
     float rimWidth = _Properties.w;
     float3 rimColor = float3(1,0,0);
     float axi = pow(saturate((1-NdotV)/*NdotL*/*rimWidth),8)*rimIntensity;
+    #if USE_SPECIAL_RIM_COLOR
+    float3 rim = _RimColor*axi;
+    #else
     float3 rim = lightColor*axi;
+    #endif
 /// Final Color:
     float3 finalColor = diffuse + specular + rim;
     float4 finalRGBA = float4(finalColor,1);
