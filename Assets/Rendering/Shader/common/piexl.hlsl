@@ -74,8 +74,8 @@ float4 fragPBRForwardBase(VertexPBROutput i) : SV_Target {
     float LdotH = saturate(dot(lightDirection, halfDirection));
     float3 specularColor = _Properties.x;
     float specularMonochrome;
-    float4 _MainTex_var = tex2D(_MainTex,TRANSFORM_TEX(i.uv0, _MainTex));
-    float3 diffuseColor = (_MainTex_var.rgb*_Color.rgb); // Need this for specular when using metallic
+    float4 texColor = tex2D(_MainTex,TRANSFORM_TEX(i.uv0, _MainTex));
+    float3 diffuseColor = (texColor.rgb*_Color.rgb); // Need this for specular when using metallic
     diffuseColor = DiffuseAndSpecularFromMetallic(diffuseColor, specularColor, specularColor, specularMonochrome);
     specularMonochrome = 1.0-specularMonochrome;
     float NdotV = abs(dot(normalDirection, viewDirection));
@@ -117,7 +117,7 @@ float4 fragPBRForwardBase(VertexPBROutput i) : SV_Target {
     float rimIntensity = _Properties.z;
     float rimWidth = _Properties.w;
     float3 rimColor = float3(1,0,0);
-    float axi = PositivePow(saturate((1-NdotV)/*NdotL*/*rimWidth),8)*rimIntensity;
+    float axi = PositivePow(saturate((1-NdotV)/*(1-NdotL)*/*rimWidth),8)*rimIntensity;
     #if USE_SPECIAL_RIM_COLOR
     float3 rim = _RimColor*axi;
     #else
@@ -126,6 +126,14 @@ float4 fragPBRForwardBase(VertexPBROutput i) : SV_Target {
 /// Final Color:
     float3 finalColor = diffuse + specular + rim;
     float4 finalRGBA = float4(finalColor,1);
+///Alpha
+    #if ALPHA_TEST
+    finalRGBA = float4(finalColor,texColor.a);
+    clip(finalRGBA.a-0.6);
+    #endif
+    #if ALPHA_PREMULT
+    finalRGBA = float4(finalColor,texColor.a);
+    #endif
     UNITY_APPLY_FOG(i.fogCoord, finalRGBA);
     #if OPEN_SHADER_DEBUG
     DEBUG_PBS_COLOR(diffuse,specular,rim,normalDirection);

@@ -12,23 +12,35 @@ Shader "Custom/PBR/PBR_M4" {
 
         [HideInInspector]
         _RimColor("RimColor",Color)=(1,1,1,1)
+
+        [HideInInspector] 
+        _SrcBlend("src", Float) = 1.0
+        
+        [HideInInspector] 
+        _DstBlend("dst", Float) = 0.0
+
+        [HideInInspector] 
+        _ZWrite("zw", Float) = 1.0
     }
+
     SubShader {
         Tags { "RenderType"="Opaque" }
         Pass {
             Name "FORWARD"
             Tags { "LightMode"="ForwardBase" }
-             
+            Blend[_SrcBlend][_DstBlend]
+            ZWrite[_ZWrite]
+            
             CGPROGRAM
             
             #pragma target 3.0
             
             #pragma shader_feature OPEN_SHADER_DEBUG
             #pragma shader_feature USE_SPECIAL_RIM_COLOR
-            
-            #define UNITY_PASS_FORWARDBASE
+            #pragma shader_feature ALPHA_TEST
+            #pragma shader_feature ALPHA_PREMULT
+
             #define SHOULD_SAMPLE_SH ( defined (LIGHTMAP_OFF) && defined(DYNAMICLIGHTMAP_OFF) )
-            #define _GLOSSYENV 1
             #pragma multi_compile_fwdbase_fullshadows
             #pragma multi_compile LIGHTMAP_OFF LIGHTMAP_ON
             #pragma multi_compile DIRLIGHTMAP_OFF DIRLIGHTMAP_COMBINED DIRLIGHTMAP_SEPARATE
@@ -40,7 +52,6 @@ Shader "Custom/PBR/PBR_M4" {
             #pragma vertex vertPBRForwardBase
             #pragma fragment fragPBRForwardBase
 
-           
             ENDCG
         }
         Pass
