@@ -117,7 +117,7 @@ float4 fragPBRForwardBase(VertexPBROutput i) : SV_Target {
     float rimIntensity = _Properties.z;
     float rimWidth = _Properties.w;
     float3 rimColor = float3(1,0,0);
-    float axi = pow(saturate((1-NdotV)/*NdotL*/*rimWidth),8)*rimIntensity;
+    float axi = PositivePow(saturate((1-NdotV)/*NdotL*/*rimWidth),8)*rimIntensity;
     #if USE_SPECIAL_RIM_COLOR
     float3 rim = _RimColor*axi;
     #else
