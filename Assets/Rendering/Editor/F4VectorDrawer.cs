@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UnityEditor
 {
-    public class F4Vector : MaterialPropertyDrawer
+    public class F4VectorDrawer : MaterialPropertyDrawer
     {
         private readonly string label0;
         private readonly float min0;
@@ -18,14 +18,16 @@ namespace UnityEditor
         private readonly float min3;
         private readonly float max3;
 
-        public F4Vector(string label0, float min0, float max0,
+        private readonly string HIDE = "E";
+
+        public F4VectorDrawer(string label0, float min0, float max0,
         string label1, float min1, float max1,
         string label2, float min2, float max2,
         string label3, float min3, float max3)
         {
-            if (label0 != "E")
+            if (label0 != HIDE)
             {
-                this.label0 = min0 < max0 ? string.Format(" {0}({1}-{2})", label0, min0, max0) : label0;
+                this.label0 = min0 < max0 ? string.Format(" {0} ({1}-{2})", label0, min0, max0) : label0;
                 this.min0 = min0;
                 this.max0 = max0;
             }
@@ -33,9 +35,9 @@ namespace UnityEditor
             {
                 this.label0 = null;
             }
-            if (label1 != "E")
+            if (label1 != HIDE)
             {
-                this.label1 = min1 < max1 ? string.Format(" {0}({1}-{2})", label1, min1, max1) : label1;
+                this.label1 = min1 < max1 ? string.Format(" {0} ({1}-{2})", label1, min1, max1) : label1;
                 this.min1 = min1;
                 this.max1 = max1;
             }
@@ -43,9 +45,9 @@ namespace UnityEditor
             {
                 this.label1 = null;
             }
-            if (label2 != "E")
+            if (label2 != HIDE)
             {
-                this.label2 = min2 < max2 ? string.Format(" {0}({1}-{2})", label2, min2, max2) : label2;
+                this.label2 = min2 < max2 ? string.Format(" {0} ({1}-{2})", label2, min2, max2) : label2;
                 this.min2 = min2;
                 this.max2 = max2;
             }
@@ -53,9 +55,9 @@ namespace UnityEditor
             {
                 this.label2 = null;
             }
-            if (label3 != "E")
+            if (label3 != HIDE)
             {
-                this.label3 = min3 < max3 ? string.Format(" {0}({1}-{2})", label3, min3, max3) : label3;
+                this.label3 = min3 < max3 ? string.Format(" {0} ({1}-{2})", label3, min3, max3) : label3;
                 this.min3 = min3;
                 this.max3 = max3;
             }

@@ -31,10 +31,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _DebugMode: 0
+    - _DebugMode: 4
     - _Gloss: 0.922
     - _Metallic: 0.916
     m_Colors:
     - _Color: {r: 0.63235295, g: 0.63235295, b: 0.63235295, a: 1}
-    - _Properties: {r: 0.941, g: 0.463, b: 67.4, a: 0.44}
+    - _Properties: {r: 0.367, g: 0.847, b: 60, a: 0.302}
     - _Rim: {r: 76, g: 0.73, b: 0, a: 1}

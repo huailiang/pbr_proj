@@ -33,8 +33,6 @@ namespace UnityEditor
             ShaderDebugGUI();
         }
 
-
-
         private void ShaderDebugGUI()
         {
             EditorGUI.BeginChangeCheck();

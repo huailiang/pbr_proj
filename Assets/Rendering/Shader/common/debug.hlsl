@@ -21,7 +21,7 @@ float4 DebugOutputColor (float3 diffuse,float3 specular,float3 rim, float3 norma
 {
     if (_DebugMode<Debug_None)
     {
-        return float4(diffuse+specular,1);
+        return float4(diffuse+specular+rim,1);
     }
     else if (_DebugMode<Debug_Diffuse)
     {

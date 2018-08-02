@@ -116,11 +116,12 @@ float4 fragPBRForwardBase(VertexPBROutput i) : SV_Target {
 /// Rim Color
     float rimIntensity = _Properties.z;
     float rimWidth = _Properties.w;
-    float axi = pow(saturate((1-NdotV)*(1-NdotL)*_Properties.w),3)* _Properties.z;
+    float3 rimColor = float3(1,0,0);
+    float axi = pow(saturate((1-NdotV)/*NdotL*/*rimWidth),8)*rimIntensity;
     float3 rim = lightColor*axi;
 /// Final Color:
-    float3 finalColor = diffuse + specular+rim;
-    fixed4 finalRGBA = fixed4(finalColor,1);
+    float3 finalColor = diffuse + specular + rim;
+    float4 finalRGBA = float4(finalColor,1);
     UNITY_APPLY_FOG(i.fogCoord, finalRGBA);
     #if OPEN_SHADER_DEBUG
     DEBUG_PBS_COLOR(diffuse,specular,rim,normalDirection);
