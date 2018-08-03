@@ -20,7 +20,7 @@ Shader "Custom/PBR/PBR_M4" {
         _DstBlend("dst", Float) = 0.0
 
         [HideInInspector] 
-        _ZWrite("zw", Float) = 1.0
+        _ZWrite("zwrite", Float) = 1.0
     }
 
     SubShader {
@@ -30,7 +30,7 @@ Shader "Custom/PBR/PBR_M4" {
             Tags { "LightMode"="ForwardBase" }
             Blend[_SrcBlend][_DstBlend]
             ZWrite[_ZWrite]
-            
+
             CGPROGRAM
             
             #pragma target 3.0

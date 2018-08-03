@@ -6,15 +6,15 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: PBS_M6
+  m_Name: PBS_CUBE
   m_Shader: {fileID: 4800000, guid: 88629256718f4453c9e02f0c66b9a81e, type: 3}
-  m_ShaderKeywords: ALPHA_TEST OPEN_SHADER_DEBUG USE_SPECIAL_RIM_COLOR
+  m_ShaderKeywords: ALPHA_PREMULT OPEN_SHADER_DEBUG USE_SPECIAL_RIM_COLOR
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: 2450
   stringTagMap:
-    RenderType: Opaque
+    RenderType: TransparentCutout
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
