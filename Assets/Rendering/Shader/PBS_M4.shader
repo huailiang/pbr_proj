@@ -28,8 +28,8 @@ Shader "Custom/PBR/PBR_M4" {
         Pass {
             Name "FORWARD"
             Tags { "LightMode"="ForwardBase" }
-            Blend[_SrcBlend][_DstBlend]
-            ZWrite[_ZWrite]
+            Blend  [_SrcBlend] [_DstBlend]
+            ZWrite [_ZWrite]
 
             CGPROGRAM
             

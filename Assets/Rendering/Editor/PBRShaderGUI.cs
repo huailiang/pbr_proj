@@ -32,9 +32,9 @@ namespace UnityEditor
 
         internal enum AlphaMode
         {
-            None,
-            AlphaTest,
-            AlphaPrume
+            None = 1 << 0,
+            AlphaTest = 1 << 1,
+            AlphaPrume = 1 << 2
         }
 
         Material material;
@@ -46,7 +46,6 @@ namespace UnityEditor
         bool use_special_rim = true;
         DebugMode debugMode = DebugMode.None;
         BlendMode blendMode = BlendMode.Opaque;
-        AlphaMode alphaMode = AlphaMode.None;
         Color rimColor = Color.blue;
 
         public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] props)
@@ -73,24 +72,16 @@ namespace UnityEditor
                 rimColor = EditorGUILayout.ColorField("Rim Color", rimColor);
             }
             blendMode = (BlendMode)EditorGUILayout.Popup("Blend Mode", (int)blendMode, Enum.GetNames(typeof(BlendMode)));
-            SetMatBlend(blendMode);
-            alphaMode = (AlphaMode)EditorGUILayout.Popup("Alpha Mode", (int)alphaMode, Enum.GetNames(typeof(AlphaMode)));
             open_debug = EditorGUILayout.Toggle("OpenDebug", open_debug);
+            if (open_debug) debugMode = (DebugMode)EditorGUILayout.Popup("Debug Mode", (int)debugMode, Enum.GetNames(typeof(DebugMode)));
+
             if (EditorGUI.EndChangeCheck())
             {
+                SetMatBlend(blendMode);
                 EnableMatKeyword(KEY_OPEN_SHADER_DEBUG, open_debug);
                 EnableMatKeyword(KEY_USE_SPECIAL_RIM_COLOR, use_special_rim);
-                EnableMatKeyword(KEY_ALPHA_TEST, alphaMode == AlphaMode.AlphaTest);
-                EnableMatKeyword(KEY_ALPHA_PREMULT, alphaMode == AlphaMode.AlphaPrume);
-            }
-            if (open_debug)
-            {
-                debugMode = (DebugMode)EditorGUILayout.Popup("Debug Mode", (int)debugMode, Enum.GetNames(typeof(DebugMode)));
-                material.SetFloat("_DebugMode", (float)debugMode);
-            }
-            if (use_special_rim)
-            {
-                matRimColor.colorValue = rimColor;
+                if (use_special_rim) matRimColor.colorValue = rimColor;
+                if (open_debug) material.SetFloat("_DebugMode", (float)debugMode);
             }
         }
 
@@ -111,22 +102,22 @@ namespace UnityEditor
             switch (mode)
             {
                 case BlendMode.Opaque:
-                    SetMatBlend(UnityEngine.Rendering.BlendMode.One, UnityEngine.Rendering.BlendMode.Zero, 1);
+                    SetMatBlend(UnityEngine.Rendering.BlendMode.One, UnityEngine.Rendering.BlendMode.Zero, AlphaMode.None, 1);
                     material.SetOverrideTag("RenderType", "Opaque");
                     material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Geometry;
                     break;
                 case BlendMode.Cutout:
-                    SetMatBlend(UnityEngine.Rendering.BlendMode.One, UnityEngine.Rendering.BlendMode.Zero, 1);
-                    material.SetOverrideTag("RenderType", "TransparentCutout");
+                    SetMatBlend(UnityEngine.Rendering.BlendMode.One, UnityEngine.Rendering.BlendMode.Zero, AlphaMode.AlphaTest, 1);
+                    material.SetOverrideTag("RenderType", "Opaque");
                     material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.AlphaTest;
                     break;
                 case BlendMode.CutoutTransparent:
-                    SetMatBlend(UnityEngine.Rendering.BlendMode.One, UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha, 1);
+                    SetMatBlend(UnityEngine.Rendering.BlendMode.One, UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha, AlphaMode.AlphaTest | AlphaMode.AlphaPrume, 1);
                     material.SetOverrideTag("RenderType", "TransparentCutout");
-                    material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.AlphaTest;
+                    material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
                     break;
                 case BlendMode.Transparent:
-                    SetMatBlend(UnityEngine.Rendering.BlendMode.One, UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha, 0);
+                    SetMatBlend(UnityEngine.Rendering.BlendMode.One, UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha, AlphaMode.AlphaPrume, 0);
                     material.SetOverrideTag("RenderType", "Transparent");
                     material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
                     break;
@@ -136,14 +127,17 @@ namespace UnityEditor
             }
         }
 
-        private void SetMatBlend(UnityEngine.Rendering.BlendMode src, UnityEngine.Rendering.BlendMode dst, int z)
+        private void SetMatBlend(UnityEngine.Rendering.BlendMode src, UnityEngine.Rendering.BlendMode dst, AlphaMode alp, int zwrite)
         {
             if (material.HasProperty("_SrcBlend"))
                 material.SetInt("_SrcBlend", (int)src);
             if (material.HasProperty("_DstBlend"))
                 material.SetInt("_DstBlend", (int)dst);
             if (material.HasProperty("_ZWrite"))
-                material.SetInt("_ZWrite", z);
+                material.SetInt("_ZWrite", zwrite);
+
+            EnableMatKeyword(KEY_ALPHA_TEST, (alp & AlphaMode.AlphaTest) != 0);
+            EnableMatKeyword(KEY_ALPHA_PREMULT, (alp & AlphaMode.AlphaPrume) != 0);
         }
 
 
