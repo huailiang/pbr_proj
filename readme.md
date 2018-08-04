@@ -52,6 +52,43 @@ cpecular:
 
 很多BRDF模型里的计算，比如微面元法线分布函数(GGXTerm)、微面元遮挡函数(SmithJointGGXVisibilityTerm)、菲涅耳反射(FresnelTerm), 我们直接使用了UnityStandardBRDF.cginc里已经为我们实现好的函数。
 
+f(l,v)就是PBR的核心内容:
+
+```
+// 　　　　　　D(h) F(v,h) G(l,v,h)
+//f(l,v) = ---------------------------
+// 　　　　　　  4(n·l)(n·v)
+```
+
+其中：
+
+微面元法线分布函数 D(h):GGX  
+
+```
+//  　　		alpha^2
+//D(m) = -------------------------------
+//  　　	pi*((n·m)^2 *(alpha^2-1)+1)^2
+```
+
+微面元遮挡函数 G(l,v,h):Smith-Schlick,在Smith近似下G(l,v,h) = g(l)*g(v)
+
+```
+//  　　	     n·v
+//g(v) =  ----------------
+// 　　　　(n·v) *(1-k) +k
+```
+
+F(v,h):UE4对Schlick的一个近似
+
+```
+//Schlick
+//F(v,h) = F0 +(1-F0)*(1-(v·h))^5
+//
+//UE4 approximation
+//
+//F(v,h) = F0+(1-F0)2^((-5.55473(v·h)-6.98316)*v·h)
+```
+
 UnityStandardBRDF.cginc放在unity安装目录Editor\Data\CGIncludes下面
 
 ```hlsl
