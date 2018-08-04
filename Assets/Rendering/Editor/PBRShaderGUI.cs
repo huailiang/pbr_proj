@@ -48,6 +48,8 @@ namespace UnityEditor
         BlendMode blendMode = BlendMode.Opaque;
         Color rimColor = Color.blue;
 
+
+
         public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] props)
         {
             base.OnGUI(materialEditor, props);
@@ -66,11 +68,7 @@ namespace UnityEditor
             EditorGUI.BeginChangeCheck();
 
             use_special_rim = EditorGUILayout.Toggle("SpecialRimColor", use_special_rim);
-            if (use_special_rim)
-            {
-
-                rimColor = EditorGUILayout.ColorField("Rim Color", rimColor);
-            }
+            if (use_special_rim) rimColor = EditorGUILayout.ColorField("Rim Color", rimColor);
             blendMode = (BlendMode)EditorGUILayout.Popup("Blend Mode", (int)blendMode, Enum.GetNames(typeof(BlendMode)));
             open_debug = EditorGUILayout.Toggle("OpenDebug", open_debug);
             if (open_debug) debugMode = (DebugMode)EditorGUILayout.Popup("Debug Mode", (int)debugMode, Enum.GetNames(typeof(DebugMode)));
@@ -91,9 +89,30 @@ namespace UnityEditor
             Shader shader = material.shader;
             matDebugMode = FindProperty("_DebugMode", props, false);
             matRimColor = FindProperty("_RimColor", props, false);
-            if (matDebugMode == null || matRimColor == null)
+            string rendertype = material.GetTag("RenderType", true);
+            if (matRimColor != null)
             {
-                Debug.LogError("shader error property is nil");
+                rimColor = matRimColor.colorValue;
+            }
+            if (matDebugMode != null)
+            {
+                debugMode = (DebugMode)(matDebugMode.floatValue);
+            }
+            if (rendertype.Equals("TransparentCutout"))
+            {
+                blendMode = BlendMode.CutoutTransparent;
+            }
+            else if (rendertype.Equals("Transparent"))
+            {
+                blendMode = BlendMode.Transparent;
+            }
+            else if (material.renderQueue == (int)UnityEngine.Rendering.RenderQueue.Geometry)
+            {
+                blendMode = BlendMode.Opaque;
+            }
+            else
+            {
+                blendMode = BlendMode.Cutout;
             }
         }
 

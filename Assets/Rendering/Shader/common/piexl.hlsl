@@ -138,7 +138,13 @@ float4 fragPBRForwardBase(VertexPBROutput i) : SV_Target {
     #endif
     UNITY_APPLY_FOG(i.fogCoord, finalRGBA);
     #if OPEN_SHADER_DEBUG
-    DEBUG_PBS_COLOR(diffuse, specular, rim, normalDirection, alpha);
+     DECLARE_OUTPUT(DebugData,debugData);
+     debugData.diffuse = diffuse;
+     debugData.specular= specular;
+     debugData.rim = rim;
+     debugData.normal = normalDirection;
+     debugData.alpha= alpha;
+    DEBUG_PBS_COLOR(debugData);
     #endif
     return finalRGBA;
 }

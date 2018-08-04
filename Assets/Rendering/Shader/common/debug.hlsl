@@ -11,14 +11,27 @@
 #define Debug_Normal    4
 #define Debug_Rim       5
 
+struct DebugData
+{
+    float3 diffuse;
+    float3 specular;
+    float3 rim;
+    float3 normal;
+    float alpha;
+};
 
-#define DEBUG_PBS_COLOR(diffuse, specular, rim, normal,alpha) finalRGBA = DebugOutputColor(diffuse, specular, rim, normal, alpha)
+#define DEBUG_PBS_COLOR(debugData) finalRGBA = DebugOutputColor(debugData)
 
 uniform float _DebugMode;
 
-
-float4 DebugOutputColor (float3 diffuse,float3 specular,float3 rim, float3 normal,float a) 
+float4 DebugOutputColor(DebugData debugData) 
 {
+    float3 diffuse = debugData.diffuse;
+    float3 specular = debugData.specular;
+    float3 rim = debugData.rim;
+    float3 normal = debugData.normal;
+    float a = debugData.alpha;
+    
     if (_DebugMode<Debug_None)
     {
         return float4(diffuse+specular+rim,a);
