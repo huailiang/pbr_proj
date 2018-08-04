@@ -69,12 +69,14 @@ f(l,v)就是PBR的核心内容:
 //D(m) = -------------------------------
 //  　　	pi*((n·m)^2 *(alpha^2-1)+1)^2
 ```
+alpha = roughness * roughness,roughness是粗糙度，roughness= 1-smoothness
+
 
 微面元遮挡函数 G(l,v,h):Smith-Schlick,在Smith近似下G(l,v,h) = g(l)*g(v)
 
 ```
 //  　　	     n·v
-//g(v) =  ----------------
+//g(v) =  -----------------
 // 　　　　(n·v) *(1-k) +k
 ```
 
