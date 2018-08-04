@@ -31,7 +31,8 @@ float4 DebugOutputColor(DebugData debugData)
     float3 rim = debugData.rim;
     float3 normal = debugData.normal;
     float a = debugData.alpha;
-    
+
+    [branch]
     if (_DebugMode<Debug_None)
     {
         return float4(diffuse+specular+rim,a);
