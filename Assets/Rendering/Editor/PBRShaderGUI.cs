@@ -17,6 +17,9 @@ namespace UnityEditor
             None,
             Diffuse,
             Specular,
+            GGX,
+            SmithJoint,
+            Frenel,
             Normal,
             Rim
         }

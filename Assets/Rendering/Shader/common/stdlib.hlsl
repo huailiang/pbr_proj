@@ -5,9 +5,6 @@
 #ifndef UNITY_STDLIB
 #define UNITY_STDLIB
 
-#include "UnityPBSLighting.cginc"
-#include "UnityStandardBRDF.cginc"
-
 #define EPSILON      1.0e-4
 #define PI           3.14159265359
 #define INV_PI       0.31830988618
