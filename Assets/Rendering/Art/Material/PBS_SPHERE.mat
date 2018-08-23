@@ -39,7 +39,8 @@ Material:
     - _SrcBlend: 1
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.63235295, g: 0.63235295, b: 0.63235295, a: 1}
+    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _DebugColor: {r: 1, g: 1, b: 1, a: 1}
     - _Properties: {r: 0.876, g: 0.405, b: 37.4, a: 0.574}
     - _Rim: {r: 76, g: 0.73, b: 0, a: 1}
     - _RimColor: {r: 1, g: 0.97342795, b: 0.03676468, a: 1}

@@ -2,7 +2,7 @@
 **/Library/
 **/.vs/
 **/.vscode/
-
+**/obj/
 **/Assets/ShaderForge/
 **/Assets/ShaderForge.meta
 

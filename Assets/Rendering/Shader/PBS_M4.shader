@@ -13,6 +13,9 @@ Shader "Custom/PBR/PBR_M4" {
         [HideInInspector]
         _RimColor("RimColor",Color)=(1,1,1,1)
 
+        [HideInInspector]
+        _DebugColor("DebugColor",Color)=(1,1,1,1)
+
         [HideInInspector] 
         _SrcBlend("src", Float) = 1.0
         

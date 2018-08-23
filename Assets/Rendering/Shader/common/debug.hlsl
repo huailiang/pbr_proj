@@ -13,6 +13,7 @@
 #define Debug_Frenel        6
 #define Debug_Normal        7
 #define Debug_Rim           8
+#define Debug_HitEffect     9
 
 struct DebugData
 {
@@ -24,6 +25,8 @@ struct DebugData
     float3 rim;
     float3 normal;
     float alpha;
+    float4 debugColor;
+    float ndotv;
 };
 
 #define DEBUG_PBS_COLOR(debugData) finalRGBA = DebugOutputColor(debugData)
@@ -40,6 +43,7 @@ float4 DebugOutputColor(DebugData debugData)
     float3 rim = debugData.rim;
     float3 normal = debugData.normal;
     float a = debugData.alpha;
+    float4 debug = debugData.debugColor;
 
     [branch]
     if (_DebugMode<Debug_None)
@@ -73,6 +77,23 @@ float4 DebugOutputColor(DebugData debugData)
     else if (_DebugMode<Debug_Rim)
     {
         return float4(rim,a);
+    }
+    else if (_DebugMode<Debug_HitEffect)
+    {
+        float3 lighting = float3(0,0,0);
+        float4 color = float4(diffuse+specular+rim,a);
+        [branch]
+        if (debug.a<0.4)
+        {
+            return color *= debug.rgba;
+        }
+        else if(debug.a<0.8)
+        {
+            float ndotv= debugData.ndotv;
+            float rim = pow(saturate(1-ndotv),2)*20;
+            return color += debug.rgba * rim;
+        }
+        return color;
     }
     return float4(1,1,1,1);
 }

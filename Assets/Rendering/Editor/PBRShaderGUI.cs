@@ -21,7 +21,8 @@ namespace UnityEditor
             SmithJoint,
             Frenel,
             Normal,
-            Rim
+            Rim,
+            HitEffect,
         }
 
 
@@ -43,6 +44,7 @@ namespace UnityEditor
         Material material;
         MaterialProperty matDebugMode;
         MaterialProperty matRimColor;
+        MaterialProperty matDebugColor;
 
         bool initial = false;
         bool open_debug = true;
@@ -50,7 +52,7 @@ namespace UnityEditor
         DebugMode debugMode = DebugMode.None;
         BlendMode blendMode = BlendMode.Opaque;
         Color rimColor = Color.blue;
-
+        Color debugColor = Color.white;
 
 
         public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] props)
@@ -74,15 +76,28 @@ namespace UnityEditor
             if (use_special_rim) rimColor = EditorGUILayout.ColorField("Rim Color", rimColor);
             blendMode = (BlendMode)EditorGUILayout.Popup("Blend Mode", (int)blendMode, Enum.GetNames(typeof(BlendMode)));
             open_debug = EditorGUILayout.Toggle("OpenDebug", open_debug);
-            if (open_debug) debugMode = (DebugMode)EditorGUILayout.Popup("Debug Mode", (int)debugMode, Enum.GetNames(typeof(DebugMode)));
-
+            if (open_debug)
+            {
+                debugMode = (DebugMode)EditorGUILayout.Popup("Debug Mode", (int)debugMode, Enum.GetNames(typeof(DebugMode)));
+                if (debugMode == DebugMode.HitEffect)
+                {
+                    debugColor = EditorGUILayout.ColorField("Base Color", debugColor);
+                }
+            }
             if (EditorGUI.EndChangeCheck())
             {
                 SetMatBlend(blendMode);
                 EnableMatKeyword(KEY_OPEN_SHADER_DEBUG, open_debug);
                 EnableMatKeyword(KEY_USE_SPECIAL_RIM_COLOR, use_special_rim);
                 if (use_special_rim) matRimColor.colorValue = rimColor;
-                if (open_debug) material.SetFloat("_DebugMode", (float)debugMode);
+                if (open_debug)
+                {
+                    material.SetFloat("_DebugMode", (float)debugMode);
+                    if (debugMode == DebugMode.HitEffect)
+                    {
+                        matDebugColor.colorValue = debugColor;
+                    }
+                }
             }
         }
 
@@ -92,6 +107,7 @@ namespace UnityEditor
             Shader shader = material.shader;
             matDebugMode = FindProperty("_DebugMode", props, false);
             matRimColor = FindProperty("_RimColor", props, false);
+            matDebugColor = FindProperty("_DebugColor", props, false);
             string rendertype = material.GetTag("RenderType", true);
             if (matRimColor != null)
             {

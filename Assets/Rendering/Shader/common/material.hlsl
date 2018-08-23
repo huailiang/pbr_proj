@@ -17,5 +17,9 @@ uniform float4 _Properties;
 uniform float4 _RimColor;
 #endif
 
+#if OPEN_SHADER_DEBUG
+uniform float4 _DebugColor;
+#endif
+
 
 #endif //UNITY_MATERIAL

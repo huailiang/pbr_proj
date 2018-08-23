@@ -148,6 +148,8 @@ float4 fragPBRForwardBase(VertexPBROutput i) : SV_Target {
      debugData.rim = rim;
      debugData.normal = normalDirection;
      debugData.alpha= alpha;
+     debugData.debugColor = _DebugColor;
+     debugData.ndotv = NdotV;
      DEBUG_PBS_COLOR(debugData);
     #endif
     return finalRGBA;
