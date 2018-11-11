@@ -109,4 +109,4 @@ UnityStandardBRDF.cginc放在unity安装目录Editor\Data\CGIncludes下面
 
 <br><img src='image/dye.gif' align="left" width=256>
 			
-<img src='image/de2.jpg' width=300><br>
+<img src='image/de2.jpg' width=380><br>
