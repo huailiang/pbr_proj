@@ -108,5 +108,5 @@ UnityStandardBRDF.cginc放在unity安装目录Editor\Data\CGIncludes下面
 读者感兴趣的话，可以通过工具Tools->QUVEditor uv工具查看。
 
 <br><img src='image/dye.gif' align="left" width=256>
-
-<img src='image/de2.jpg' width=400><br>
+&nbsp&nbsp
+<img src='image/de2.jpg' width=300><br>
