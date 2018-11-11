@@ -99,12 +99,7 @@ UnityStandardBRDF.cginc放在unity安装目录Editor\Data\CGIncludes下面
 
 ## 染色
 
-
-<br><br>
-
-<img src='image/dye.gif' align="right" width=256>
-
-<br><br>
+<br><img src='image/dye.gif' align="left" width=256><br>
 
 染色系统的实现不再基于对纹理简单的采样, 而是程序里自定义颜色。shader的属性里设置了R,G,B 三个通道的颜色，可以通过材质Inspector窗口自定义颜色。piexl shader中去混合这些颜色。
 
@@ -113,4 +108,4 @@ UnityStandardBRDF.cginc放在unity安装目录Editor\Data\CGIncludes下面
 读者感兴趣的话，可以通过工具Tools->QUVEditor uv工具查看。
 
 
-<br><img src='image/de2.jpg'><br>
+<br><img src='image/de2.jpg' width=400><br>
