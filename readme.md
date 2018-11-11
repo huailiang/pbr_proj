@@ -8,7 +8,7 @@
 </p>
 
 
-PBR 渲染 
+### PBR 渲染 
 
 以metallic 工作流实现的一套简化的pbs,适合在手机移动平台上running。
 
@@ -74,6 +74,7 @@ alpha = roughness * roughness,roughness是粗糙度，roughness= 1-smoothness
 
 微面元遮挡函数 G(l,v,h):Smith-Schlick,在Smith近似下G(l,v,h) = g(l)*g(v)
 
+
 ```
 //  　　	     n·v
 //g(v) =  -----------------
@@ -93,39 +94,23 @@ F(v,h):UE4对Schlick的一个近似
 
 UnityStandardBRDF.cginc放在unity安装目录Editor\Data\CGIncludes下面
 
-```hlsl
-   float NdotL = saturate(dot(normalDirection, lightDirection));
-    float LdotH = saturate(dot(lightDirection, halfDirection));
-    float3 specularColor = _Metallic;
-    float specularMonochrome;
-    float4 _MainTex_var = tex2D(_MainTex,TRANSFORM_TEX(i.uv0, _MainTex));
-    float3 diffuseColor = (_MainTex_var.rgb*_Color.rgb); // Need this for specular when using metallic
-    diffuseColor = DiffuseAndSpecularFromMetallic(diffuseColor, specularColor, specularColor, specularMonochrome);
-    specularMonochrome = 1.0-specularMonochrome;
-    float NdotV = abs(dot(normalDirection, viewDirection));
-    float NdotH = saturate(dot(normalDirection, halfDirection));
-    float VdotH = saturate(dot(viewDirection, halfDirection));
-    float visTerm = SmithJointGGXVisibilityTerm(NdotL, NdotV, roughness);
-    float normTerm = GGXTerm(NdotH, roughness);
-    float specularPBL = (visTerm*normTerm) * PI;
-    #ifdef UNITY_COLORSPACE_GAMMA
-        specularPBL = sqrt(max(1e-4h, specularPBL));
-    #endif
-    specularPBL = max(0, specularPBL * NdotL);
-    #if defined(_SPECULARHIGHLIGHTS_OFF)
-        specularPBL = 0.0;
-    #endif
-    half surfaceReduction;
-    #ifdef UNITY_COLORSPACE_GAMMA
-        surfaceReduction = 1.0-0.28*roughness*perceptualRoughness;
-    #else
-        surfaceReduction = 1.0/(roughness*roughness + 1.0);
-    #endif
-    specularPBL *= any(specularColor) ? 1.0 : 0.0;
-    float3 directSpecular = attenColor*specularPBL*FresnelTerm(specularColor, LdotH);
-    half grazingTerm = saturate( gloss + specularMonochrome );
-    float3 indirectSpecular = (gi.indirect.specular);
-    indirectSpecular *= FresnelLerp (specularColor, grazingTerm, NdotV);
-    indirectSpecular *= surfaceReduction;
-    float3 specular = (directSpecular + indirectSpecular);
-```
+
+<br><br>
+
+<img src='image/dye.gif' align="right" width=384>
+
+<br><br>
+
+## 染色
+
+
+
+
+染色系统的实现不再基于对纹理简单的采样, 而是程序里自定义颜色。shader的属性里设置了R,G,B 三个通道的颜色，可以通过材质Inspector窗口自定义颜色。piexl shader中去混合这些颜色。
+
+使用这套染色系统，对mesh有一定的要求，需要诸如衣服颜色这些固定颜色的部位使用R,G,B中的一种颜色，里面只有灰度变化。对于像皮肤肉色这种变化的且追求细节的部位，纹理绑定的uv区间需要超出1，
+
+读者感兴趣的话，可以通过工具Tools->QUVEditor uv工具查看。
+
+
+<br><img src='image/de2.jpg'><br>

@@ -233,7 +233,7 @@ Terrain:
   m_GameObject: {fileID: 196378686}
   m_Enabled: 1
   serializedVersion: 3
-  m_TerrainData: {fileID: 15600000, guid: 05b8120f375bd43d8901ebc26d8d66b2, type: 2}
+  m_TerrainData: {fileID: 0}
   m_TreeDistance: 2000
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
@@ -309,6 +309,23 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 137545098827053586, guid: 18dd96efcb257d14ab8e55cbf37fd1ed,
+        type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 277d25d4de0032e4ca332cd6561145df, type: 2}
+    - target: {fileID: 4579887641634692, guid: 18dd96efcb257d14ab8e55cbf37fd1ed, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4579887641634692, guid: 18dd96efcb257d14ab8e55cbf37fd1ed, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4579887641634692, guid: 18dd96efcb257d14ab8e55cbf37fd1ed, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18dd96efcb257d14ab8e55cbf37fd1ed, type: 2}
   m_IsPrefabAsset: 0
@@ -337,7 +354,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 1
-  m_Color: {r: 0.98377275, g: 1, b: 0.88235295, a: 1}
+  m_Color: {r: 0.9580278, g: 0.9622642, b: 0.9304913, a: 1}
   m_Intensity: 1.6
   m_Range: 10
   m_SpotAngle: 46.7
