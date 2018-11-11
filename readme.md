@@ -95,16 +95,16 @@ F(v,h):UE4对Schlick的一个近似
 UnityStandardBRDF.cginc放在unity安装目录Editor\Data\CGIncludes下面
 
 
-<br><br>
 
-<img src='image/dye.gif' align="right" width=384>
-
-<br><br>
 
 ## 染色
 
 
+<br><br>
 
+<img src='image/dye.gif' align="right" width=256>
+
+<br><br>
 
 染色系统的实现不再基于对纹理简单的采样, 而是程序里自定义颜色。shader的属性里设置了R,G,B 三个通道的颜色，可以通过材质Inspector窗口自定义颜色。piexl shader中去混合这些颜色。
 
