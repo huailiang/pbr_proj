@@ -12,7 +12,8 @@
 #include "stdlib.hlsl"
 
 
-void vertPBRForwardBase (VertexPBRInput v,out VertexPBROutput o) {
+void vertPBRForwardBase (VertexPBRInput v,out VertexPBROutput o) 
+{
     INITIALIZE_OUTPUT(VertexPBROutput,o);
     o.uv0 = v.texcoord0;
 

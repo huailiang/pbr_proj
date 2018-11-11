@@ -5,7 +5,8 @@
 #ifndef UNITY_HEAD
 #define UNITY_HEAD
 
-struct VertexPBRInput {
+struct VertexPBRInput 
+{
     float2 texcoord0 : TEXCOORD0;
     float2 texcoord1 : TEXCOORD1;
     float2 texcoord2 : TEXCOORD2;
@@ -14,7 +15,9 @@ struct VertexPBRInput {
     float4 tangent : TANGENT;
 };
 
-struct VertexPBROutput {
+
+struct VertexPBROutput 
+{
     float4 pos : SV_POSITION;
     float2 uv0 : TEXCOORD0;
     float4 posWorld : TEXCOORD1;

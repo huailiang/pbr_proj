@@ -69,13 +69,34 @@ float4 fragPBRForwardBase(VertexPBROutput i) : SV_Target {
     UnityGI gi = UnityGlobalIllumination(d, 1, normalDirection, ugls_en_data );
     lightDirection = gi.light.dir;
     lightColor = gi.light.color;
+
 ////// Specular:
     float NdotL = saturate(dot(normalDirection, lightDirection));
     float LdotH = saturate(dot(lightDirection, halfDirection));
     float3 specularColor = _Properties.x;
     float specularMonochrome;
     float4 texColor = tex2D(_MainTex,TRANSFORM_TEX(i.uv0, _MainTex));
-    float3 diffuseColor = (texColor.rgb*_Color.rgb); // Need this for specular when using metallic
+
+#ifndef SELF_TRIPLE_COLOR
+    float3 diffuseColor = (texColor.rgb * _Color.rgb); // Need this for specular when using metallic
+    float alpha = texColor.a;
+#else
+
+    float3 diffuseColor1 = 
+            (_ColorR.rgb * texColor.r * _ColorR.a +
+             _ColorG.rgb * texColor.g * _ColorG.a + 
+             _ColorB.rgb * texColor.b * _ColorB.a) * float(10);
+
+    float2 newuv= float2(i.uv0.x-1,i.uv0.y);
+    float4 newColor = tex2D(_MainTex,TRANSFORM_TEX(newuv, _MainTex));
+    float3 diffuseColor2 = (newColor.rgb * _Color.rgb);
+    
+    float uvlow = step(i.uv0.x, 1); 
+    float uvhigh = 1 - uvlow;
+    float3 diffuseColor = diffuseColor1 * uvlow + diffuseColor2 * uvhigh;
+    float alpha = (_ColorR.a + _ColorG.a + _ColorB.a) * 0.7 + uvhigh * 0.3;
+#endif
+
     diffuseColor = DiffuseAndSpecularFromMetallic(diffuseColor, specularColor, specularColor, specularMonochrome);
     specularMonochrome = 1.0-specularMonochrome;
     float NdotV = abs(dot(normalDirection, viewDirection));
@@ -127,13 +148,12 @@ float4 fragPBRForwardBase(VertexPBROutput i) : SV_Target {
     float3 finalColor = diffuse + specular + rim;
     float4 finalRGBA = float4(finalColor,1);
 ///Alpha
-    float alpha = 1;
+    // float alpha = 1;
     #if ALPHA_TEST
-    finalRGBA = float4(finalColor, texColor.a);
+    finalRGBA = float4(finalColor, alpha);
     clip(finalRGBA.a-0.6);
     #endif
     #if ALPHA_PREMULT
-    alpha = texColor.a;
     finalRGBA = float4(finalColor, alpha);
     #endif
     UNITY_APPLY_FOG(i.fogCoord, finalRGBA);

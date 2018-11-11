@@ -46,39 +46,39 @@ float4 DebugOutputColor(DebugData debugData)
     float4 debug = debugData.debugColor;
 
     [branch]
-    if (_DebugMode<Debug_None)
+    if (_DebugMode < Debug_None)
     {
         return float4(diffuse+specular+rim,a);
     }
-    else if (_DebugMode<Debug_Diffuse)
+    else if (_DebugMode < Debug_Diffuse)
     {
         return float4(diffuse,a);
     }
-    else if (_DebugMode<Debug_Specular)
+    else if (_DebugMode < Debug_Specular)
     {
         return float4(specular,a);
     }
-    else if (_DebugMode<Debug_GGX)
+    else if (_DebugMode < Debug_GGX)
     {
         return float4(ggx, ggx, ggx, 1);
     }
-    else if (_DebugMode<Debug_SmithJoint)
+    else if (_DebugMode < Debug_SmithJoint)
     {
         return float4(smith,smith,smith,1);
     }
-    else if (_DebugMode<Debug_Frenel)
+    else if (_DebugMode < Debug_Frenel)
     {
         return float4(frenel,1);
     }
-    else if (_DebugMode<Debug_Normal)
+    else if (_DebugMode < Debug_Normal)
     {
         return float4(normal,a);
     }
-    else if (_DebugMode<Debug_Rim)
+    else if (_DebugMode < Debug_Rim)
     {
         return float4(rim,a);
     }
-    else if (_DebugMode<Debug_HitEffect)
+    else if (_DebugMode < Debug_HitEffect)
     {
         float3 lighting = float3(0,0,0);
         float4 color = float4(diffuse+specular+rim,a);
