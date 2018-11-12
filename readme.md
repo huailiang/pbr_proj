@@ -77,7 +77,7 @@ alpha = roughness * roughness,roughness是粗糙度，roughness= 1-smoothness
 
 ```
 //  　　	     n·v
-//g(v) =  -----------------
+//g(v) =  --------------------
 // 　　　　(n·v) *(1-k) +k
 ```
 
