@@ -99,14 +99,16 @@ UnityStandardBRDF.cginc放在unity安装目录Editor\Data\CGIncludes下面
 
 ## 染色
 
-
+<br><img src='image/dye.gif' align="left" width=1200><br>
 
 染色系统的实现不再基于对纹理简单的采样, 而是程序里自定义颜色。shader的属性里设置了R,G,B 三个通道的颜色，可以通过材质Inspector窗口自定义颜色。piexl shader中去混合这些颜色。
 
 使用这套染色系统，对mesh有一定的要求，需要诸如衣服颜色这些固定颜色的部位使用R,G,B中的一种颜色，里面只有灰度变化。对于像皮肤肉色这种变化的且追求细节的部位，纹理绑定的uv区间需要超出1，
 
-读者感兴趣的话，可以通过工具Tools->QUVEditor uv工具查看。
 
-<br><img src='image/dye.gif' align="left" width=256>
-			
-<img src='image/de2.jpg' width=350><br>
+读者感兴趣的话，可以通过工具QUVEditor uv工具查看。unity的QUVEditor可以在[这里][i1]下载
+
+<br><img src='image/de2.jpg' width=1150><br>
+
+
+[i1]:http://www.qtoolsdevelop.com/
