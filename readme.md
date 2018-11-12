@@ -3,7 +3,7 @@
 	    <img src="https://huailiang.github.io/img/unity.jpeg" width="200" height="100">
 	</a>
     <a href="https://huailiang.github.io/">
-    	<img src="https://huailiang.github.io/img/avatar-Alex.jpg" width="120" height="100">
+    	<img src="https://huailiang.github.io/img/avatar-Alex-home.jpg" width="120" height="100">
    	</a>
 </p>
 
@@ -77,7 +77,7 @@ alpha = roughness * roughness,roughness是粗糙度，roughness= 1-smoothness
 
 ```
 //  　　	     n·v
-//g(v) =  --------------------
+//g(v) =  ------------------
 // 　　　　(n·v) *(1-k) +k
 ```
 
