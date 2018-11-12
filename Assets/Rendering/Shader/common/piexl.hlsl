@@ -11,7 +11,8 @@
 #include "debug.hlsl"
 #include "material.hlsl"
 
-float4 fragPBRForwardBase(VertexPBROutput i) : SV_Target {
+float4 fragPBRForwardBase(VertexPBROutput i) : SV_Target 
+{
     i.normalDir = normalize(i.normalDir);
     float3x3 tangentTransform = float3x3(i.tangentDir, i.bitangentDir, i.normalDir);
     float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
@@ -78,14 +79,17 @@ float4 fragPBRForwardBase(VertexPBROutput i) : SV_Target {
     float4 texColor = tex2D(_MainTex,TRANSFORM_TEX(i.uv0, _MainTex));
 
 #ifndef SELF_TRIPLE_COLOR
+    
     float3 diffuseColor = (texColor.rgb * _Color.rgb); // Need this for specular when using metallic
     float alpha = texColor.a;
+
 #else
 
+    //染色核心代码 根据 R,G,B 通道混合算法
     float3 diffuseColor1 = 
             (_ColorR.rgb * texColor.r * _ColorR.a +
              _ColorG.rgb * texColor.g * _ColorG.a + 
-             _ColorB.rgb * texColor.b * _ColorB.a) * float(10);
+             _ColorB.rgb * texColor.b * _ColorB.a) * _Color.rgb * float(8);
 
     float2 newuv= float2(i.uv0.x-1,i.uv0.y);
     float4 newColor = tex2D(_MainTex,TRANSFORM_TEX(newuv, _MainTex));
@@ -95,6 +99,7 @@ float4 fragPBRForwardBase(VertexPBROutput i) : SV_Target {
     float uvhigh = 1 - uvlow;
     float3 diffuseColor = diffuseColor1 * uvlow + diffuseColor2 * uvhigh;
     float alpha = (_ColorR.a + _ColorG.a + _ColorB.a) * 0.7 + uvhigh * 0.3;
+
 #endif
 
     diffuseColor = DiffuseAndSpecularFromMetallic(diffuseColor, specularColor, specularColor, specularMonochrome);

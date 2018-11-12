@@ -5,7 +5,7 @@ Shader "Custom/PBR/PBR_Role" {
         _MainTex ("Base Color", 2D) = "white" {}
         _Color ("Color", Color) = (0.0,0.0,0.0,1)
 
-        _ColorR("R Channel" , Color) = (1,1,1,0.1)
+        _ColorR("R Channel", Color) = (1,1,1,0.1)
         _ColorG("G Channel", Color) = (1,1,1,0.1)
         _ColorB("B Channel", Color) = (1,1,1,0.1)
         _NormalMap ("Normal Map", 2D) = "bump" {}

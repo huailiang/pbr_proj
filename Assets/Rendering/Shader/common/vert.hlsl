@@ -12,7 +12,7 @@
 #include "stdlib.hlsl"
 
 
-void vertPBRForwardBase (VertexPBRInput v,out VertexPBROutput o) 
+void vertPBRForwardBase (VertexPBRInput v, out VertexPBROutput o) 
 {
     INITIALIZE_OUTPUT(VertexPBROutput,o);
     o.uv0 = v.texcoord0;
@@ -32,7 +32,7 @@ void vertPBRForwardBase (VertexPBRInput v,out VertexPBROutput o)
     #elif UNITY_SHOULD_SAMPLE_SH
         o.ambientOrLightmapUV = 0;
         #ifdef VERTEXLIGHT_ON
-            float3 light = Shade4PointLights (
+            float3 light = Shade4PointLights(
               unity_4LightPosX0, 
               unity_4LightPosY0, 
               unity_4LightPosZ0,
@@ -42,10 +42,11 @@ void vertPBRForwardBase (VertexPBRInput v,out VertexPBROutput o)
               unity_LightColor[3].rgb,
               unity_4LightAtten0, 
               o.posWorld, 
-              o.normalDir );
+              o.normalDir);
              o.ambientOrLightmapUV += float4(light,0);
         #endif // VERTEXLIGHT_ON
     #endif
+
     #ifdef DYNAMICLIGHTMAP_ON
         o.ambientOrLightmapUV.zw = v.texcoord2.xy * unity_DynamicLightmapST.xy + unity_DynamicLightmapST.zw;
     #endif
