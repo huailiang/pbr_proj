@@ -108,4 +108,21 @@ UnityStandardBRDF.cginc放在unity安装目录Editor\Data\CGIncludes下面
 <br><img src='image/de2.jpg' width=1150><br>
 
 
+## 阴影
+
+场景里的人并不是采样realtime的光照模式，light并没有输出shadow。 这里采用的做法是RT+Projector的方式
+
+1. 制作一张RenderTexture, RT的ColorFormat是R8， WrapMode选择Clamp
+
+2. 单独一个阴影摄像机，把camera的Target Texture输出到上个步骤的RT
+
+3. 创建一个Projector, 设置好对应的ignore layer, 运行游戏就可以看到阴影了
+
+4. 在相应的材质面板你可以设置shadow的颜色， 可以设置材质的模糊程度
+
+
+<br><img src='image/shadow.jpg' width=488><br>
+
+
+
 [i1]:http://www.qtoolsdevelop.com/

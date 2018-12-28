@@ -34,10 +34,10 @@ Shader "Custom/PBR/PBR_Role" {
 
 
     SubShader {
-        Tags { "RenderType"="Opaque" }
+		Tags { "RenderType" = "Opaque" "IgnoreProjector" = "False" }
         Pass {
             Name "FORWARD"
-            Tags { "LightMode"="ForwardBase" }
+            Tags { "LightMode"="ForwardBase" "IgnoreProjector" = "False"}
             Blend  [_SrcBlend] [_DstBlend]
             ZWrite [_ZWrite]
 
