@@ -23,8 +23,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _BlurRadius: 1
+    - _BlurRadius: 2.33
     - _TextureSize: 256
     m_Colors:
-    - _Color: {r: 1, g: 0.24806672, b: 0, a: 0.8627451}
+    - _Color: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 0.8627451}
     - _Vec: {r: 0.3, g: 2, b: 1, a: 1}
