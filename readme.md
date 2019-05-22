@@ -62,6 +62,8 @@ pbr(l,v)就是PBR的核心内容:
 ```
 alpha = roughness * roughness,roughness是粗糙度，roughness= 1-smoothness
 
+h表示用来与平面上微平面做比较用的中间向量，即平面法向量和光线方向向量之间的中间向量
+
 
 微面元遮挡函数 G(l,v,h):Smith-Schlick,在Smith近似下G(l,v,h) = g(l)*g(v)
 
@@ -71,6 +73,10 @@ alpha = roughness * roughness,roughness是粗糙度，roughness= 1-smoothness
 //g(v) =  ------------------
 // 　　　  (n·v) *(1-k) +k
 ```
+
+k是α基于几何函数是针对直接光照还是针对IBL光照的重映射(Remapping)，k=alpha^2/2
+
+
 
 菲涅尔方程 F(v,h):UE4对Schlick的一个近似  
 
@@ -83,11 +89,11 @@ alpha = roughness * roughness,roughness是粗糙度，roughness= 1-smoothness
 //F(v,h) = F0+(1-F0)2^((-5.55473(v·h)-6.98316)*v·h)
 ```
 
-平面对于法向入射的响应或者说基础反射率可以在一些大型数据库中找到，比如[这个](https://refractiveindex.info/)。下面列举的这一些常见数值就是从Naty Hoffman的课程讲义中所得到的：
+F0表示平面的基础反射率，即折射指数(Indices of Refraction)。平面对于法向入射的响应或者说基础反射率可以在一些大型数据库中找到，比如[这个](https://refractiveindex.info/)。下面列举的这一些常见数值就是从Naty Hoffman的课程讲义中所得到的：
 
 <table align="center" border="1" rules=rows><tbody>
     <tr>
-        <th style="text-align:center;">材料</th><th style="text-align:center;">\(F0\) (线性空间)</th><th  style="text-align:center;">\(F0\) (sRGB)</th>
+        <th style="text-align:center;">材料</th><th style="text-align:center;">(F0) (线性空间)</th><th  style="text-align:center;">(F0) (sRGB)</th>
     </tr>
     <tr>
         <td width="320" align="center" >水</td><td width="320" align="center">(0.02, 0.02, 0.02)</td><td width="320"  align="center">(0.15, 0.15, 0.15) </td>
