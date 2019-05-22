@@ -62,8 +62,6 @@ BRDF处理镜面反射的公式:
 ```
 alpha = roughness * roughness,roughness是粗糙度，roughness= 1-smoothness
 
-h表示用来与平面上微平面做比较用的中间向量，即平面法向量和光线方向向量之间的中间向量
-
 <br>
 
 #### 微面元遮挡函数 G(l,v,h)
@@ -89,6 +87,8 @@ k是α基于几何函数是针对直接光照还是针对IBL光照的重映射(R
 //
 //F(v,h) = F0+(1-F0)2^((-5.55473(v·h)-6.98316)*v·h)
 ```
+
+h表示用来与平面上微平面做比较用的中间向量，即视野向量和光线方向向量之间的中间向量 vec3 h = normalize(v + l)
 
 F0表示平面的基础反射率，即折射指数(Indices of Refraction)。平面对于法向入射的响应或者说基础反射率可以在一些大型数据库中找到，比如[这个](https://refractiveindex.info/)。下面列举的这一些常见数值就是从Naty Hoffman的课程讲义中所得到的：
 
@@ -132,7 +132,7 @@ F0表示平面的基础反射率，即折射指数(Indices of Refraction)。平�
 UnityStandardBRDF.cginc放在unity安装目录Editor\Data\CGIncludes下面
 
 
-
+<br>
 
 ## 染色
 
