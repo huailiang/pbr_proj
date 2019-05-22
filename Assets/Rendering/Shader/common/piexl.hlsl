@@ -153,7 +153,6 @@ float4 fragPBRForwardBase(VertexPBROutput i) : SV_Target
     float3 finalColor = diffuse + specular + rim;
     float4 finalRGBA = float4(finalColor,1);
 ///Alpha
-    // float alpha = 1;
     #if ALPHA_TEST
     finalRGBA = float4(finalColor, alpha);
     clip(finalRGBA.a-0.6);
