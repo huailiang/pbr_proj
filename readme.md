@@ -39,15 +39,15 @@ float3 diffuse = (directDiffuse + indirectDiffuse) * diffuseColor;
 ```
 
 
-cpecular:
+specular:
 
 很多BRDF模型里的计算，比如微面元法线分布函数(GGXTerm)、微面元遮挡函数(SmithJointGGXVisibilityTerm)、菲涅耳反射(FresnelTerm), 我们直接使用了UnityStandardBRDF.cginc里已经为我们实现好的函数。
 
-pbr(l,v)就是PBR的核心内容:
+BRDF处理镜面反射的公式:
 
 ```
 // 　　　　　　D(h) F(v,h) G(l,v,h)
-//pbr(l,v) = ---------------------------
+//F(specular) = ---------------------------
 // 　　　　　　  4(n·l)(n·v)
 ```
 
