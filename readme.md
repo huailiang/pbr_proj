@@ -56,9 +56,9 @@ f(l,v)就是PBR的核心内容:
 微面元法线分布函数 D(h):GGX  
 
 ```
-//  　　		alpha^2
+//  　　		                       alpha^2
 //D(m) = -------------------------------
-//  　　	pi*((n·m)^2 *(alpha^2-1)+1)^2
+//  　　       	pi*((n·m)^2 *(alpha^2-1)+1)^2
 ```
 alpha = roughness * roughness,roughness是粗糙度，roughness= 1-smoothness
 
@@ -67,9 +67,9 @@ alpha = roughness * roughness,roughness是粗糙度，roughness= 1-smoothness
 
 
 ```
-//  　　	     n·v
+//  　　	                 n·v
 //g(v) =  ------------------
-// 　　　　(n·v) *(1-k) +k
+// 　　　　    (n·v) *(1-k) +k
 ```
 
 F(v,h):UE4对Schlick的一个近似
@@ -82,6 +82,43 @@ F(v,h):UE4对Schlick的一个近似
 //
 //F(v,h) = F0+(1-F0)2^((-5.55473(v·h)-6.98316)*v·h)
 ```
+
+<table align="center" border="1" rules=rows><tbody>
+    <tr>
+        <th style="text-align:center;">材料</th><th style="text-align:center;">\(F_0\) (线性)</th><th  style="text-align:center;">\(F_0\) (sRGB)</th>
+    </tr>
+    <tr>
+        <td width="200" align="center" >水</td><td width="200" align="center">(0.02, 0.02, 0.02)</td><td width="200"  align="center">(0.15, 0.15, 0.15) </td>
+    </tr>
+    <tr>
+        <td align="center" >塑料/玻璃（低）</td><td align="center" >(0.03, 0.03, 0.03)</td><td align="center" >(0.21, 0.21, 0.21)</td>
+    </tr>
+        <tr>
+        <td align="center" >塑料（高）</td><td align="center" >(0.05, 0.05, 0.05)</td><td align="center" >(0.24, 0.24, 0.24)</td>
+    </tr>
+        <tr>
+        <td align="center" >玻璃（高）/红宝石</td><td align="center" >(0.08, 0.08, 0.08)</td><td align="center" >(0.31, 0.31, 0.31)</td>
+    </tr>
+        <tr>
+        <td align="center" >钻石</td><td align="center" >(0.17, 0.17, 0.17)</td><td align="center" >(0.45, 0.45, 0.45)</td>
+    </tr>
+        <tr>
+        <td align="center" >铁</td><td align="center" >(0.56, 0.57, 0.58)</td><td align="center" >(0.77, 0.78, 0.78)</td>
+    </tr>
+        <tr>
+        <td align="center" >铜</td><td align="center" >(0.95, 0.64, 0.54)</td><td align="center" >(0.98, 0.82, 0.76)</td>
+    </tr>
+        <tr>
+        <td align="center" >金</td><td align="center" >(1.00, 0.71, 0.29)</td><td align="center" >(1.00, 0.86, 0.57)</td>
+    </tr>
+        <tr>
+        <td align="center" >铝</td><td align="center" >(0.91, 0.92, 0.92)</td><td align="center" >(0.96, 0.96, 0.97)</td>
+    </tr>
+        <tr>
+        <td align="center" >银</td><td align="center" >(0.95, 0.93, 0.88)</td><td align="center" >(0.98, 0.97, 0.95)</td>
+    </tr>
+</table>
+
 
 UnityStandardBRDF.cginc放在unity安装目录Editor\Data\CGIncludes下面
 
