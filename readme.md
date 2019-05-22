@@ -53,7 +53,7 @@ pbr(l,v)就是PBR的核心内容:
 
 其中：
 
-微面元法线分布函数 D(h):GGX  
+#### 微面元法线分布函数 D(h):GGX  
 
 ```
 //  　　	alpha^2
@@ -64,9 +64,10 @@ alpha = roughness * roughness,roughness是粗糙度，roughness= 1-smoothness
 
 h表示用来与平面上微平面做比较用的中间向量，即平面法向量和光线方向向量之间的中间向量
 
+<br>
 
-微面元遮挡函数 G(l,v,h):Smith-Schlick,在Smith近似下G(l,v,h) = g(l)*g(v)
-
+#### 微面元遮挡函数 G(l,v,h)
+ Smith-Schlick,在Smith近似下G(l,v,h) = g(l)*g(v)
 
 ```
 //  　　	  n·v
@@ -76,9 +77,9 @@ h表示用来与平面上微平面做比较用的中间向量，即平面法向�
 
 k是α基于几何函数是针对直接光照还是针对IBL光照的重映射(Remapping)，k=alpha^2/2
 
+<br>
 
-
-菲涅尔方程 F(v,h):UE4对Schlick的一个近似  
+#### 菲涅尔方程 F(v,h):UE4对Schlick的一个近似  
 
 ```
 //Schlick
