@@ -43,11 +43,11 @@ cpecular:
 
 很多BRDF模型里的计算，比如微面元法线分布函数(GGXTerm)、微面元遮挡函数(SmithJointGGXVisibilityTerm)、菲涅耳反射(FresnelTerm), 我们直接使用了UnityStandardBRDF.cginc里已经为我们实现好的函数。
 
-f(l,v)就是PBR的核心内容:
+pbr(l,v)就是PBR的核心内容:
 
 ```
 // 　　　　　　D(h) F(v,h) G(l,v,h)
-//f(l,v) = ---------------------------
+//pbr(l,v) = ---------------------------
 // 　　　　　　  4(n·l)(n·v)
 ```
 
@@ -72,7 +72,7 @@ alpha = roughness * roughness,roughness是粗糙度，roughness= 1-smoothness
 // 　　　  (n·v) *(1-k) +k
 ```
 
-F(v,h):UE4对Schlick的一个近似
+菲涅尔方程 F(v,h):UE4对Schlick的一个近似  
 
 ```
 //Schlick
@@ -88,7 +88,7 @@ F(v,h):UE4对Schlick的一个近似
         <th style="text-align:center;">材料</th><th style="text-align:center;">\(F_0\) (线性)</th><th  style="text-align:center;">\(F_0\) (sRGB)</th>
     </tr>
     <tr>
-        <td width="200" align="center" >水</td><td width="200" align="center">(0.02, 0.02, 0.02)</td><td width="200"  align="center">(0.15, 0.15, 0.15) </td>
+        <td width="320" align="center" >水</td><td width="320" align="center">(0.02, 0.02, 0.02)</td><td width="320"  align="center">(0.15, 0.15, 0.15) </td>
     </tr>
     <tr>
         <td align="center" >塑料/玻璃（低）</td><td align="center" >(0.03, 0.03, 0.03)</td><td align="center" >(0.21, 0.21, 0.21)</td>
