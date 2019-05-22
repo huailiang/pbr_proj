@@ -56,9 +56,9 @@ f(l,v)就是PBR的核心内容:
 微面元法线分布函数 D(h):GGX  
 
 ```
-//  　　		                       alpha^2
+//  　　	alpha^2
 //D(m) = -------------------------------
-//  　　       	pi*((n·m)^2 *(alpha^2-1)+1)^2
+//  　　  pi*((n·m)^2 *(alpha^2-1)+1)^2
 ```
 alpha = roughness * roughness,roughness是粗糙度，roughness= 1-smoothness
 
@@ -67,9 +67,9 @@ alpha = roughness * roughness,roughness是粗糙度，roughness= 1-smoothness
 
 
 ```
-//  　　	                 n·v
+//  　　	  n·v
 //g(v) =  ------------------
-// 　　　　    (n·v) *(1-k) +k
+// 　　　  (n·v) *(1-k) +k
 ```
 
 F(v,h):UE4对Schlick的一个近似
