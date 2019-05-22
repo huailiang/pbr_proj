@@ -73,7 +73,7 @@ alpha = roughness * roughness,roughness是粗糙度，roughness= 1-smoothness
 // 　　　  (n·v) *(1-k) +k
 ```
 
-k是α基于几何函数是针对直接光照还是针对IBL光照的重映射(Remapping)，k=alpha^2/2
+k是α基于几何函数是针对直接光照还是针对IBL光照的重映射(Remapping)，k=alpha^2/2, 很多的时候我们直接这里直接传roughness给
 
 <br>
 
