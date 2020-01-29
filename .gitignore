@@ -1,8 +1,10 @@
 **/Temp/
 **/Library/
 **/.vs/
+**/.idea/
 **/.vscode/
 **/obj/
+Logs/
 **/Assets/ShaderForge/
 **/Assets/ShaderForge.meta
 **/Assets/QUVEditor/
