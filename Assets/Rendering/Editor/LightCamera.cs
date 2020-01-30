@@ -9,14 +9,15 @@ public class LightCamera : EditorWindow
     private GameObject player;
     private RenderTexture rt_2d;
     private Shader shadowCaster;
-    private float strength;
+    private float strength, bias;
     private const string s_cam = "Directional Light Camera";
 
     private void OnEnable()
     {
         if (light == null) light = GameObject.FindObjectOfType<Light>();
         if (player == null) player = GameObject.FindWithTag("Player");
-        if (resolution == 0) resolution = 512;
+        if (resolution == 0) resolution = 256;
+        if (bias == 0) bias = 0.005f;
         if (strength == 0) strength = 0.5f;
         if (shadowCaster == null) shadowCaster = Shader.Find("CustomShadow/Caster");
         CreateDirLightCamera();
@@ -34,7 +35,9 @@ public class LightCamera : EditorWindow
         }
 
         strength = EditorGUILayout.Slider("light strength", strength, 0, 1);
+        bias = EditorGUILayout.Slider("Shadow Bias", bias, 0.001f, 0.01f);
         Shader.SetGlobalFloat("_gShadowStrength", strength);
+        Shader.SetGlobalFloat("_gShadowBias", bias);
         EditorGUILayout.ObjectField("caster", shadowCaster, typeof(Shader), false);
         EditorGUILayout.ObjectField("lightmap", rt_2d, typeof(RenderTexture), true);
         if (lightCamera && lightCamera.enabled) lightCamera.enabled = false;
@@ -79,9 +82,12 @@ public class LightCamera : EditorWindow
         RenderTextureFormat rtFormat = RenderTextureFormat.Default;
         if (!SystemInfo.SupportsRenderTextureFormat(rtFormat))
             rtFormat = RenderTextureFormat.Default;
-        rt_2d = new RenderTexture(resolution, resolution, 24, rtFormat);
-        rt_2d.hideFlags = HideFlags.DontSave;
-        rt_2d.useMipMap = false;
+        if (rt_2d == null)
+        {
+            rt_2d = new RenderTexture(resolution, resolution, 24, rtFormat);
+            rt_2d.hideFlags = HideFlags.DontSave;
+            rt_2d.useMipMap = false;
+        }
         Shader.SetGlobalTexture("_gShadowMapTexture", rt_2d);
         Shader.SetGlobalFloat("_gShadowBias", 0.005f);
         Shader.SetGlobalFloat("_gShadowStrength", strength);
