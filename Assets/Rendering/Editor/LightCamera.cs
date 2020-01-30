@@ -24,22 +24,21 @@ public class LightCamera : EditorWindow
 
     private void OnGUI()
     {
-        light = (Light) EditorGUILayout.ObjectField("light", light, typeof(Light), true);
+        light = (Light)EditorGUILayout.ObjectField("light", light, typeof(Light), true);
         resolution = EditorGUILayout.IntField("resolution", resolution);
-        player = (GameObject) EditorGUILayout.ObjectField("player", player, typeof(GameObject), true);
-        if (light)
+        player = (GameObject)EditorGUILayout.ObjectField("player", player, typeof(GameObject), true);
+        if (light && player && lightCamera)
         {
-            if (player && lightCamera)
-            {
-                lightCamera.transform.rotation = light.transform.rotation;
-                lightCamera.transform.position = player.transform.position - 4 * light.transform.forward;
-            }
+            lightCamera.transform.rotation = light.transform.rotation;
+            lightCamera.transform.position = player.transform.position - 2 * light.transform.forward;
         }
+
         strength = EditorGUILayout.Slider("light strength", strength, 0, 1);
+        Shader.SetGlobalFloat("_gShadowStrength", strength);
         EditorGUILayout.ObjectField("caster", shadowCaster, typeof(Shader), false);
         EditorGUILayout.ObjectField("lightmap", rt_2d, typeof(RenderTexture), true);
-        if (lightCamera.enabled) lightCamera.enabled = false;
-        
+        if (lightCamera && lightCamera.enabled) lightCamera.enabled = false;
+
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("Generate RT")) Create2DTextureFor();
         if (GUILayout.Button("Select Camera")) Selection.activeObject = lightCamera.gameObject;
@@ -54,9 +53,9 @@ public class LightCamera : EditorWindow
             if (go != null) GameObject.DestroyImmediate(go);
             else break;
         }
+
         if (rt_2d) rt_2d.Release();
     }
-
 
     private void CreateDirLightCamera()
     {
@@ -66,15 +65,14 @@ public class LightCamera : EditorWindow
         lightCamera.backgroundColor = Color.white;
         lightCamera.clearFlags = CameraClearFlags.SolidColor;
         lightCamera.orthographic = true;
-        lightCamera.orthographicSize = 2f;
-        lightCamera.nearClipPlane = 0.3f;
-        lightCamera.farClipPlane = 20;
+        lightCamera.orthographicSize = 1.6f;
+        lightCamera.nearClipPlane = 0.0f;
+        lightCamera.farClipPlane = 3;
         lightCamera.enabled = false;
-        // lightCamera.RenderWithShader(shadowCaster, "");
-        lightCamera.SetReplacementShader(shadowCaster,"");
+        lightCamera.cullingMask = (1 << 8) | (1 << 11);
+        lightCamera.SetReplacementShader(shadowCaster, "");
         Selection.activeObject = goLightCamera;
     }
-
 
     private void Create2DTextureFor()
     {
@@ -83,22 +81,21 @@ public class LightCamera : EditorWindow
             rtFormat = RenderTextureFormat.Default;
         rt_2d = new RenderTexture(resolution, resolution, 24, rtFormat);
         rt_2d.hideFlags = HideFlags.DontSave;
+        rt_2d.useMipMap = false;
         Shader.SetGlobalTexture("_gShadowMapTexture", rt_2d);
         Shader.SetGlobalFloat("_gShadowBias", 0.005f);
         Shader.SetGlobalFloat("_gShadowStrength", strength);
-        if (lightCamera)
-        {
-            lightCamera.enabled = true;
-            // lightCamera.RenderWithShader(shadowCaster, "");
-            lightCamera.targetTexture = rt_2d;
-            Matrix4x4 projectionMatrix = GL.GetGPUProjectionMatrix(lightCamera.projectionMatrix, false);
-            Shader.SetGlobalMatrix("_gWorldToShadow", projectionMatrix * lightCamera.worldToCameraMatrix);
-            lightCamera.Render();
-        }
+
+        lightCamera.enabled = true;
+        // lightCamera.RenderWithShader(shadowCaster, "");
+        lightCamera.targetTexture = rt_2d;
+        Matrix4x4 projectionMatrix = GL.GetGPUProjectionMatrix(lightCamera.projectionMatrix, false);
+        Shader.SetGlobalMatrix("_gWorldToShadow", projectionMatrix * lightCamera.worldToCameraMatrix);
+        lightCamera.Render();
     }
-    
-    
-    [MenuItem("Tools/LightCameraShadow")]
+
+
+    [MenuItem("Tools/LightShadow")]
     static void CreateShdow()
     {
         var win = GetWindow<LightCamera>();

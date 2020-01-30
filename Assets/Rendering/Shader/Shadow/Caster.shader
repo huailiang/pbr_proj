@@ -1,13 +1,11 @@
-﻿Shader "CustomShadow/Caster"
+﻿Shader "CustomShadow/Caster" 
 {
-    Properties {   
-    }
-    SubShader
-    {
-        Tags { "RenderType"="Opaque" }
+    SubShader {
+        Tags {           
+            "RenderType" = "Opaque"
+        }
 
-        Pass
-        {
+        Pass {
             Fog { Mode Off }
             Cull front
 
@@ -24,17 +22,16 @@
 
             uniform float _gShadowBias;
 
-            v2f vert (appdata_full v)
+            v2f vert (appdata_full v) 
             {
                 v2f o;
                 o.pos = UnityObjectToClipPos(v.vertex);
                 o.pos.z += _gShadowBias;
                 o.depth = o.pos.zw;
-
                 return o;
             }
-            
-            fixed4 frag (v2f i) : COLOR
+
+            float4 frag (v2f i) : COLOR
             {
                 float depth = i.depth.x / i.depth.y;
             #if defined (SHADER_TARGET_GLSL) 
@@ -46,6 +43,6 @@
                 return EncodeFloatRGBA(depth);
             }
             ENDCG 
-        }
+        }    
     }
 }

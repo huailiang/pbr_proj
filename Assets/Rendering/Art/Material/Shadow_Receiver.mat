@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CustomShadow_Receiver
+  m_Name: Shadow_Receiver
   m_Shader: {fileID: 4800000, guid: 552f3f7f362064da4b46c901c507b814, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4

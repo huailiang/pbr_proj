@@ -18,8 +18,8 @@
 
             uniform float4x4 _gWorldToShadow;
             uniform sampler2D _gShadowMapTexture;
-            uniform float4 _gShadowMapTexture_TexelSize;
-            uniform float _gShadowStrength;
+            uniform float _gShadowStrength; 
+            uniform float _gShadowBias;
 
             v2f vert (appdata_full v) 
             {
@@ -27,13 +27,11 @@
                 o.pos = UnityObjectToClipPos (v.vertex);
                 float4 worldPos = mul(unity_ObjectToWorld, v.vertex);
                 o.shadowCoord = mul(_gWorldToShadow, worldPos);
-
                 return o; 
             }
 
             fixed4 frag (v2f i) : COLOR0 
             {            
-                // shadow
                 i.shadowCoord.xy = i.shadowCoord.xy/i.shadowCoord.w;
                 float2 uv = i.shadowCoord.xy;
                 uv = uv*0.5 + 0.5; //(-1, 1)-->(0, 1)
@@ -45,11 +43,14 @@
                 depth = 1 - depth;       //(1, 0)-->(0, 1)
             #endif
 
-                // sample depth texture
+                // if(uv.x <=0 || uv.y<=0) return 1;
+                // if(uv.x >=1 || uv.y>=1) return 1;
+            
                 float4 col = tex2D(_gShadowMapTexture, uv);
                 float sampleDepth = DecodeFloatRGBA(col);
                 float shadow = sampleDepth < depth ? _gShadowStrength : 1;
 
+               if(depth >1 && sampleDepth >1) return 1;
                 return shadow;
             }    
 
