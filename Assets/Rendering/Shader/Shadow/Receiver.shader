@@ -50,11 +50,11 @@
             {            
                 i.shadowCoord.xy = i.shadowCoord.xy/i.shadowCoord.w;
                 float2 uv = i.shadowCoord.xy;
-                uv = uv*0.5 + 0.5; //(-1, 1)-->(0, 1)
+                uv = uv * 0.5 + 0.5; //(-1, 1)-->(0, 1)
 
                 float depth = i.shadowCoord.z / i.shadowCoord.w;
             #if defined (SHADER_TARGET_GLSL)
-                depth = depth*0.5 + 0.5; //(-1, 1)-->(0, 1)
+                depth = depth * 0.5 + 0.5; //(-1, 1)-->(0, 1)
             #elif defined (UNITY_REVERSED_Z)
                 depth = 1 - depth;       //(1, 0)-->(0, 1)
             #endif

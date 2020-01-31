@@ -62,7 +62,8 @@ public class LightCamera : EditorWindow
 
     private void CreateDirLightCamera()
     {
-        if (GameObject.Find(s_cam)) return;
+        var go = GameObject.Find(s_cam);
+        if (go != null) GameObject.DestroyImmediate(go);
         GameObject goLightCamera = new GameObject(s_cam);
         lightCamera = goLightCamera.AddComponent<Camera>();
         lightCamera.backgroundColor = Color.white;
@@ -92,12 +93,15 @@ public class LightCamera : EditorWindow
         Shader.SetGlobalFloat("_gShadowBias", 0.005f);
         Shader.SetGlobalFloat("_gShadowStrength", strength);
 
-        lightCamera.enabled = true;
-        // lightCamera.RenderWithShader(shadowCaster, "");
-        lightCamera.targetTexture = rt_2d;
-        Matrix4x4 projectionMatrix = GL.GetGPUProjectionMatrix(lightCamera.projectionMatrix, false);
-        Shader.SetGlobalMatrix("_gWorldToShadow", projectionMatrix * lightCamera.worldToCameraMatrix);
-        lightCamera.Render();
+        if (lightCamera)
+        {
+            lightCamera.enabled = true;
+            // lightCamera.RenderWithShader(shadowCaster, "");
+            lightCamera.targetTexture = rt_2d;
+            Matrix4x4 projectionMatrix = GL.GetGPUProjectionMatrix(lightCamera.projectionMatrix, false);
+            Shader.SetGlobalMatrix("_gWorldToShadow", projectionMatrix * lightCamera.worldToCameraMatrix);
+            lightCamera.Render();
+        }
     }
 
 
