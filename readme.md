@@ -137,7 +137,7 @@ UnityStandardBRDF.cginc放在unity安装目录Editor\Data\CGIncludes下面
 <br>
 
 
-同样的我们使用[LearnOpenGL][i2]中公式实现了一套基于金属流程 PBR的渲染方式， 并和本项目中作对比,  参见 [IBL工程][。
+同样的我们使用[LearnOpenGL][i2]中公式实现了一套基于金属流程 PBR的渲染方式， 并和本项目中作对比,  参见 [IBL工程][i3]。
 
 ## 染色
 
