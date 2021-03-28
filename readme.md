@@ -136,6 +136,9 @@ UnityStandardBRDF.cginc放在unity安装目录Editor\Data\CGIncludes下面
 
 <br>
 
+
+同样的我们使用[LearnOpenGL][i2]中公式实现了一套基于金属流程 PBR的渲染方式， 并和本项目中作对比,  参见 [IBL工程][。
+
 ## 染色
 
 <br><img src='image/dye.gif' align="left" width=1200><br><br>
@@ -157,3 +160,5 @@ UnityStandardBRDF.cginc放在unity安装目录Editor\Data\CGIncludes下面
 
 
 [i1]:http://www.qtoolsdevelop.com/
+[i2]:https://learnopengl-cn.github.io/07%20PBR/03%20IBL/02%20Specular%20IBL/
+[i3]: https://github.com/huailiang/ibl_proj
